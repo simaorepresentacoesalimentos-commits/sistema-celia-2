@@ -27,6 +27,7 @@ const AgendaVendasComponent: React.FC = () => {
   const [newItem, setNewItem] = useState<Omit<AgendaVendas, 'id'>>({
     cliente: '',
     cnpj: '',
+    cidade: '',
     telefone: '',
     contato: '',
     ultima_compra: '',
@@ -103,6 +104,7 @@ const AgendaVendasComponent: React.FC = () => {
     setNewItem({
       cliente: '',
       cnpj: '',
+      cidade: '',
       telefone: '',
       contato: '',
       ultima_compra: '',
@@ -119,6 +121,7 @@ const AgendaVendasComponent: React.FC = () => {
     setNewItem({
       cliente: item.cliente,
       cnpj: item.cnpj,
+      cidade: item.cidade || '',
       telefone: item.telefone,
       contato: item.contato,
       ultima_compra: item.ultima_compra || '',
@@ -164,9 +167,9 @@ const AgendaVendasComponent: React.FC = () => {
       await loadAgenda();
       setShowSuccessToast(true);
       setTimeout(() => setShowSuccessToast(false), 3000);
-    } catch (e) {
+    } catch (e: any) {
       console.error("Erro ao salvar item:", e);
-      alert("Erro ao salvar dados.");
+      alert("Erro ao salvar dados: " + (e.message || "Verifique se todos os campos estão corretos."));
     } finally {
       setIsSubmitting(false);
     }
@@ -326,7 +329,7 @@ const AgendaVendasComponent: React.FC = () => {
                         {isDue && <BellRing size={16} className="text-rose-500 animate-bounce shrink-0" />}
                         <div>
                           <div className="font-bold text-slate-800 text-base uppercase leading-none mb-1">{item.cliente}</div>
-                          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">CNPJ: {item.cnpj || '---'}</div>
+                          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">CNPJ: {item.cnpj || '---'} • {item.cidade || '---'}</div>
                         </div>
                       </div>
                     </td>
@@ -479,6 +482,7 @@ const AgendaVendasComponent: React.FC = () => {
                           ...newItem,
                           cliente: typed,
                           cnpj: found.cnpj || '',
+                          cidade: found.cidade || '',
                           telefone: found.telefone || '',
                           contato: found.contato || '',
                           ultima_compra: found.ultima_compra || ''
@@ -500,6 +504,16 @@ const AgendaVendasComponent: React.FC = () => {
                     placeholder="00.000.000/0001-00"
                     value={newItem.cnpj}
                     onChange={e => setNewItem({...newItem, cnpj: formatCNPJ(e.target.value)})}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest px-1">Cidade</label>
+                  <input 
+                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-lg px-3 py-2 font-bold text-slate-700 outline-none focus:border-indigo-500 shadow-sm text-xs"
+                    placeholder="Ex: São Paulo"
+                    value={newItem.cidade}
+                    onChange={e => setNewItem({...newItem, cidade: e.target.value})}
                   />
                 </div>
 

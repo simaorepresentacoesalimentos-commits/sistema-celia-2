@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import SalesForm from './components/SalesForm';
 import Financeiro from './components/Financeiro';
 import Reports from './components/Reports';
+import DraftOrders from './components/DraftOrders';
 import SystemSettings from './components/SystemSettings';
 import RestoreBackup from './components/RestoreBackup';
 import AgendaVendas from './components/AgendaVendas';
@@ -361,6 +362,7 @@ const App: React.FC = () => {
         );
       case 'financeiro': return <Financeiro />;
       case 'reports': return <Reports />;
+      case 'drafts': return <DraftOrders />;
       case 'system': return <SystemSettings />;
       case 'restore': return <RestoreBackup />;
       default: return <Dashboard products={products} orders={salesOrders} financials={financials} sellers={sellers} />;

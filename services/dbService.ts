@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { Customer, SaleOrder, FinanceiroReceber, FollowUp, AgendaVendas, Seller } from '../types';
+import { Customer, SaleOrder, FinanceiroReceber, FollowUp, AgendaVendas, Seller, DraftOrder } from '../types';
 
 const TABLE_CLIENTE = 'base_cliente';
 const TABLE_PEDIDOS = 'pedidos_venda';
@@ -8,6 +8,7 @@ const TABLE_CONFIGS = 'system_configs';
 const TABLE_FOLLOWUPS = 'follow_ups';
 const TABLE_AGENDA = 'agenda_vendas';
 const TABLE_VENDEDORES = 'vendedores';
+const TABLE_DRAFTS = 'pedidos_rascunho';
 
 export const dbService = {
   async getCustomers(): Promise<Customer[]> {
@@ -223,18 +224,36 @@ export const dbService = {
 
   async addAgenda(item: Omit<AgendaVendas, 'id'>): Promise<void> {
     const sanitized = {
-      ...item,
-      ultima_compra: item.ultima_compra && String(item.ultima_compra).trim() !== "" ? item.ultima_compra : null
+      cliente: item.cliente,
+      cnpj: item.cnpj,
+      cidade: item.cidade || '',
+      telefone: item.telefone,
+      contato: item.contato,
+      ultima_compra: item.ultima_compra && String(item.ultima_compra).trim() !== "" ? item.ultima_compra : null,
+      data_retorno: item.data_retorno,
+      hora_retorno: item.hora_retorno,
+      anotacoes: item.anotacoes,
+      status: item.status
     };
     const { error } = await supabase.from(TABLE_AGENDA).insert([sanitized]);
     if (error) throw error;
   },
 
   async updateAgenda(id: string, item: Partial<AgendaVendas>): Promise<void> {
-    const payload = { ...item };
-    if (payload.ultima_compra === "" || (payload.ultima_compra && String(payload.ultima_compra).trim() === "")) {
-      payload.ultima_compra = null as any;
-    }
+    const payload: any = { 
+      cliente: item.cliente,
+      cnpj: item.cnpj,
+      cidade: item.cidade,
+      telefone: item.telefone,
+      contato: item.contato,
+      ultima_compra: item.ultima_compra === "" || (item.ultima_compra && String(item.ultima_compra).trim() === "") ? null : item.ultima_compra,
+      data_retorno: item.data_retorno,
+      hora_retorno: item.hora_retorno,
+      anotacoes: item.anotacoes,
+      status: item.status
+    };
+    Object.keys(payload).forEach(key => payload[key] === undefined && delete payload[key]);
+    
     const { error } = await supabase.from(TABLE_AGENDA).update(payload).eq('id', id);
     if (error) throw error;
   },
@@ -246,6 +265,22 @@ export const dbService = {
 
   async deleteAgenda(id: string): Promise<void> {
     const { error } = await supabase.from(TABLE_AGENDA).delete().eq('id', id);
+    if (error) throw error;
+  },
+
+  async getDrafts(): Promise<DraftOrder[]> {
+    const { data, error } = await supabase.from(TABLE_DRAFTS).select('*').order('created_at', { ascending: false });
+    if (error) throw error;
+    return data || [];
+  },
+
+  async addDraft(draft: Omit<DraftOrder, 'id'>): Promise<void> {
+    const { error } = await supabase.from(TABLE_DRAFTS).insert([draft]);
+    if (error) throw error;
+  },
+
+  async deleteDraft(id: string): Promise<void> {
+    const { error } = await supabase.from(TABLE_DRAFTS).delete().eq('id', id);
     if (error) throw error;
   }
 };

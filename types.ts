@@ -91,6 +91,7 @@ export interface AgendaVendas {
   id: string;
   cliente: string;
   cnpj: string;
+  cidade?: string;
   telefone: string;
   contato: string;
   ultima_compra: string;
@@ -98,6 +99,13 @@ export interface AgendaVendas {
   hora_retorno: string;
   anotacoes: string;
   status: 'pendente' | 'concluido';
+  created_at?: string;
+}
+
+export interface DraftOrder {
+  id: string;
+  cliente: string;
+  vendedor: string;
   created_at?: string;
 }
 
@@ -112,4 +120,4 @@ export interface FollowUp {
   created_at?: string;
 }
 
-export type View = 'dashboard' | 'agenda' | 'customers' | 'sellers' | 'new_sale' | 'sales_list' | 'financeiro' | 'reports' | 'system' | 'restore';
+export type View = 'dashboard' | 'agenda' | 'customers' | 'sellers' | 'new_sale' | 'sales_list' | 'financeiro' | 'reports' | 'system' | 'restore' | 'drafts';

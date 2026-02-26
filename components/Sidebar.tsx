@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LayoutDashboard, Users, Settings, LogOut, ShoppingBag, ListOrdered, Wallet, BarChart3, Database, UploadCloud, CalendarDays, UserCheck } from 'lucide-react';
+import { LayoutDashboard, Users, Settings, LogOut, ShoppingBag, ListOrdered, Wallet, BarChart3, Database, UploadCloud, CalendarDays, UserCheck, ClipboardList } from 'lucide-react';
 import { View } from '../types';
 
 interface SidebarProps {
@@ -16,6 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView }) => {
     { id: 'sellers', label: 'Vendedores', icon: UserCheck },
     { id: 'new_sale', label: 'Nova Venda', icon: ShoppingBag },
     { id: 'sales_list', label: 'Pedidos Realizados', icon: ListOrdered },
+    { id: 'drafts', label: 'Rascunho de Pedidos', icon: ClipboardList },
     { id: 'financeiro', label: 'Financeiro', icon: Wallet },
     { id: 'reports', label: 'Relatórios', icon: BarChart3 },
     { id: 'system', label: 'Sistema & Backup', icon: Database },

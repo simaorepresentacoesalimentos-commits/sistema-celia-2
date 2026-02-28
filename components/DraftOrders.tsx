@@ -43,12 +43,23 @@ const DraftOrders: React.FC = () => {
       await dbService.addDraft(newDraft as any);
       setNewDraft({ cliente: '', vendedor: '', data_entrega: '' });
       await loadData();
-      alert("Anotação salva com sucesso!");
+      alert("✅ Anotação salva com sucesso!");
     } catch (e: any) {
       console.error("Erro ao adicionar rascunho:", e);
-      alert("Erro ao salvar rascunho: " + (e.message || "Erro desconhecido"));
+      alert("❌ Erro ao salvar rascunho: " + (e.message || "Erro desconhecido"));
     } finally {
       setIsSubmittingDraft(false);
+    }
+  };
+
+  const formatDate = (dateStr: string) => {
+    try {
+      if (!dateStr) return null;
+      // Garante que a data seja tratada como local para evitar problemas de fuso horário
+      const [year, month, day] = dateStr.split('-').map(Number);
+      return `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
+    } catch (e) {
+      return dateStr;
     }
   };
 
@@ -162,7 +173,7 @@ const DraftOrders: React.FC = () => {
                           {d.data_entrega && (
                             <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mt-1 flex items-center gap-1">
                               <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
-                              Entrega: {new Date(d.data_entrega + 'T00:00:00').toLocaleDateString('pt-BR')}
+                              Entrega: {formatDate(d.data_entrega)}
                             </p>
                           )}
                           <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-1">

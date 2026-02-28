@@ -276,12 +276,16 @@ export const dbService = {
 
   async addDraft(draft: Omit<DraftOrder, 'id'>): Promise<void> {
     const payload = {
-      cliente: draft.cliente,
-      vendedor: draft.vendedor,
-      data_entrega: draft.data_entrega || null
+      cliente: String(draft.cliente || '').trim(),
+      vendedor: String(draft.vendedor || '').trim(),
+      data_entrega: draft.data_entrega && String(draft.data_entrega).trim() !== "" ? draft.data_entrega : null
     };
+    
     const { error } = await supabase.from(TABLE_DRAFTS).insert([payload]);
-    if (error) throw error;
+    if (error) {
+      console.error("Erro Supabase ao inserir rascunho:", error);
+      throw new Error(`Erro ao gravar no banco: ${error.message}`);
+    }
   },
 
   async deleteDraft(id: string): Promise<void> {

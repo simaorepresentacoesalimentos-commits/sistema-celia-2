@@ -275,7 +275,12 @@ export const dbService = {
   },
 
   async addDraft(draft: Omit<DraftOrder, 'id'>): Promise<void> {
-    const { error } = await supabase.from(TABLE_DRAFTS).insert([draft]);
+    const payload = {
+      cliente: draft.cliente,
+      vendedor: draft.vendedor,
+      data_entrega: draft.data_entrega || null
+    };
+    const { error } = await supabase.from(TABLE_DRAFTS).insert([payload]);
     if (error) throw error;
   },
 

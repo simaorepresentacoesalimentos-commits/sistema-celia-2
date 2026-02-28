@@ -106,6 +106,7 @@ export interface DraftOrder {
   id: string;
   cliente: string;
   vendedor: string;
+  data_entrega?: string;
   created_at?: string;
 }
 

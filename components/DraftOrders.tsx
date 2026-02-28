@@ -10,7 +10,7 @@ const DraftOrders: React.FC = () => {
   const [drafts, setDrafts] = useState<DraftOrder[]>([]);
   const [sellers, setSellers] = useState<Seller[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newDraft, setNewDraft] = useState({ cliente: '', vendedor: '' });
+  const [newDraft, setNewDraft] = useState({ cliente: '', vendedor: '', data_entrega: '' });
   const [isSubmittingDraft, setIsSubmittingDraft] = useState(false);
 
   const loadData = async () => {
@@ -41,7 +41,7 @@ const DraftOrders: React.FC = () => {
     setIsSubmittingDraft(true);
     try {
       await dbService.addDraft(newDraft as any);
-      setNewDraft({ cliente: '', vendedor: '' });
+      setNewDraft({ cliente: '', vendedor: '', data_entrega: '' });
       await loadData();
       alert("Anotação salva com sucesso!");
     } catch (e: any) {
@@ -106,6 +106,15 @@ const DraftOrders: React.FC = () => {
                   {sellers.map(s => <option key={s.id} value={s.nome}>{s.nome}</option>)}
                 </select>
               </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Data de Entrega</label>
+                <input 
+                  type="date" 
+                  className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-widest outline-none focus:border-amber-400 shadow-inner"
+                  value={newDraft.data_entrega}
+                  onChange={e => setNewDraft({...newDraft, data_entrega: e.target.value})}
+                />
+              </div>
               <button 
                 type="submit" 
                 disabled={isSubmittingDraft || !newDraft.cliente || !newDraft.vendedor}
@@ -150,6 +159,12 @@ const DraftOrders: React.FC = () => {
                             <span className="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
                             {d.vendedor}
                           </p>
+                          {d.data_entrega && (
+                            <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mt-1 flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                              Entrega: {new Date(d.data_entrega + 'T00:00:00').toLocaleDateString('pt-BR')}
+                            </p>
+                          )}
                           <p className="text-[8px] font-bold text-slate-300 uppercase tracking-widest mt-1">
                             {d.created_at ? new Date(d.created_at).toLocaleString('pt-BR') : 'Agora'}
                           </p>

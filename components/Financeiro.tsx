@@ -13,6 +13,10 @@ const Financeiro: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState('');
   const [statusFilter, setStatusFilter] = useState('todos');
+  const [monthFilter, setMonthFilter] = useState(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+  });
 
   const loadFinanceiro = async () => {
     try {
@@ -72,6 +76,9 @@ const Financeiro: React.FC = () => {
   const todayStr = new Date().toISOString().split('T')[0];
   const now = new Date();
   
+  const firstDayPrev = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().split('T')[0];
+  const lastDayPrev = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().split('T')[0];
+  
   const firstDayCurrent = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
   const lastDayCurrent = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
   
@@ -87,6 +94,10 @@ const Financeiro: React.FC = () => {
   const itensPendentes = data.filter(i => i.status === 'pendente');
   const totalRepassePendente = itensPendentes.reduce((acc, i) => acc + Number(i.repasse_valor || 0), 0);
 
+  const itensMesAnterior = data.filter(i => i.data_vencimento >= firstDayPrev && i.data_vencimento <= lastDayPrev);
+  const faturamentoMesAnterior = itensMesAnterior.reduce((acc, i) => acc + Number(i.valor || 0), 0);
+  const repasseMesAnterior = itensMesAnterior.reduce((acc, i) => acc + Number(i.repasse_valor || 0), 0);
+
   const itensMes = itensPendentes.filter(i => i.data_vencimento >= firstDayCurrent && i.data_vencimento <= lastDayCurrent);
   const prevReceberMes = itensMes.reduce((acc, i) => acc + Number(i.valor || 0), 0);
   const prevRepasseMes = itensMes.reduce((acc, i) => acc + Number(i.repasse_valor || 0), 0);
@@ -101,8 +112,10 @@ const Financeiro: React.FC = () => {
     const matchesStatus = statusFilter === 'todos' || item.status === statusFilter;
     const isAtrasado = statusFilter === 'atrasado' && item.status === 'pendente' && item.data_vencimento < todayStr;
     
-    if (statusFilter === 'atrasado') return isAtrasado && matchesSearch;
-    return matchesStatus && matchesSearch;
+    const matchesMonth = !monthFilter || item.data_vencimento.startsWith(monthFilter);
+
+    if (statusFilter === 'atrasado') return isAtrasado && matchesSearch && matchesMonth;
+    return matchesStatus && matchesSearch && matchesMonth;
   }).sort((a, b) => a.data_vencimento.localeCompare(b.data_vencimento));
 
   return (
@@ -122,7 +135,16 @@ const Financeiro: React.FC = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        <div className="bg-slate-100 p-7 rounded-[2.5rem] text-slate-600 shadow-xl flex flex-col justify-between min-h-[180px] border-b-8 border-slate-200 opacity-80">
+          <p className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1">Mês Anterior</p>
+          <h4 className="text-3xl font-black tracking-tighter">R$ {faturamentoMesAnterior.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h4>
+          <div className="pt-2 border-t border-slate-200 flex justify-between items-center">
+             <span className="text-[10px] font-bold text-slate-400 uppercase">Repasse:</span>
+             <span className="text-sm font-black text-rose-400">R$ {repasseMesAnterior.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+          </div>
+        </div>
+
         <div className="bg-emerald-600 p-7 rounded-[2.5rem] text-white shadow-2xl flex flex-col justify-between min-h-[180px] border-b-8 border-emerald-700">
           <p className="text-sm font-black text-emerald-100 uppercase tracking-widest mb-1">Faturamento Liquidado</p>
           <h4 className="text-4xl font-black tracking-tighter">R$ {faturamentoLiquidado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h4>
@@ -161,7 +183,7 @@ const Financeiro: React.FC = () => {
       </div>
 
       <div className="bg-white p-4 rounded-2xl shadow-md border border-slate-100 flex flex-wrap gap-4 items-center">
-        <div className="flex-1 min-w-[250px] relative">
+        <div className="flex-1 min-w-[200px] relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
           <input 
             type="text" 
@@ -171,6 +193,23 @@ const Financeiro: React.FC = () => {
             onChange={e => setFilterText(e.target.value)}
           />
         </div>
+        
+        <div className="flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-xl px-4 py-2">
+          <Calendar size={16} className="text-slate-400" />
+          <input 
+            type="month" 
+            className="bg-transparent font-bold text-[10px] uppercase tracking-widest text-slate-600 outline-none"
+            value={monthFilter}
+            onChange={e => setMonthFilter(e.target.value)}
+          />
+          <button 
+            onClick={() => setMonthFilter('')}
+            className="text-[9px] font-black text-indigo-600 uppercase hover:underline ml-2"
+          >
+            Limpar
+          </button>
+        </div>
+
         <div className="flex gap-1.5">
           {['todos', 'pendente', 'atrasado', 'pago'].map((status) => (
             <button

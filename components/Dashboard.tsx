@@ -61,18 +61,31 @@ const Dashboard: React.FC<DashboardProps> = ({ orders, financials, sellers }) =>
   };
 
   const [sellerFilter, setSellerFilter] = useState<string>('');
+  const [selectedMonth, setSelectedMonth] = useState<string>(() => {
+    const d = new Date();
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    return `${d.getFullYear()}-${month}`;
+  });
+
   const formatCurrency = (val: number) => val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-  const now = new Date();
-  
-  const getPeriod = (date: Date) => {
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    return `${date.getFullYear()}-${month}`;
-  };
+  const selectedDate = useMemo(() => {
+    const [year, month] = selectedMonth.split('-').map(Number);
+    return new Date(year, month - 1, 1);
+  }, [selectedMonth]);
 
-  const currentPeriod = getPeriod(now);
-  const prevPeriod = getPeriod(new Date(now.getFullYear(), now.getMonth() - 1, 1));
-  const nextPeriod = getPeriod(new Date(now.getFullYear(), now.getMonth() + 1, 1));
+  const currentPeriod = selectedMonth;
+  const prevPeriod = useMemo(() => {
+    const d = new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, 1);
+    const m = (d.getMonth() + 1).toString().padStart(2, '0');
+    return `${d.getFullYear()}-${m}`;
+  }, [selectedDate]);
+
+  const nextPeriod = useMemo(() => {
+    const d = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1);
+    const m = (d.getMonth() + 1).toString().padStart(2, '0');
+    return `${d.getFullYear()}-${m}`;
+  }, [selectedDate]);
 
   const stats = useMemo(() => {
     const fOrders = sellerFilter ? orders.filter(o => o.vendedor === sellerFilter) : orders;
@@ -91,6 +104,10 @@ const Dashboard: React.FC<DashboardProps> = ({ orders, financials, sellers }) =>
 
     const monthOrders = fOrders.filter(o => o.data_pedido && o.data_pedido.startsWith(currentPeriod));
     const totalSoldMonth = monthOrders.reduce((acc, o) => acc + Number(o.total_pedido || 0), 0);
+    
+    const prevMonthOrders = fOrders.filter(o => o.data_pedido && o.data_pedido.startsWith(prevPeriod));
+    const totalSoldPrevMonth = prevMonthOrders.reduce((acc, o) => acc + Number(o.total_pedido || 0), 0);
+
     const totalRepassePendente = fFinancials.filter(f => f.status === 'pendente').reduce((acc, f) => acc + Number(f.repasse_valor || 0), 0);
     const amountRemaining = Math.max(0, monthlyGoal - totalSoldMonth);
 
@@ -120,6 +137,7 @@ const Dashboard: React.FC<DashboardProps> = ({ orders, financials, sellers }) =>
 
     return {
       totalSoldMonth,
+      totalSoldPrevMonth,
       totalOrdersMonth: monthOrders.length,
       totalRepassePendente,
       amountRemaining,
@@ -130,8 +148,8 @@ const Dashboard: React.FC<DashboardProps> = ({ orders, financials, sellers }) =>
     };
   }, [orders, financials, sellers, sellerFilter, monthlyGoal, currentPeriod, prevPeriod, nextPeriod]);
 
-  const currentMonthName = now.toLocaleDateString('pt-BR', { month: 'long' });
-  const nextMonthDate = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const currentMonthName = selectedDate.toLocaleDateString('pt-BR', { month: 'long' });
+  const nextMonthDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1);
   const nextMonthName = nextMonthDate.toLocaleDateString('pt-BR', { month: 'long' });
 
   return (
@@ -143,6 +161,15 @@ const Dashboard: React.FC<DashboardProps> = ({ orders, financials, sellers }) =>
           <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Nexus Business Intelligence | {currentPeriod}</p>
         </div>
         <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 shadow-sm">
+            <CalendarDays size={14} className="text-slate-400" />
+            <input 
+              type="month" 
+              className="bg-transparent border-none font-black text-slate-600 text-[10px] uppercase outline-none cursor-pointer"
+              value={selectedMonth}
+              onChange={e => setSelectedMonth(e.target.value)}
+            />
+          </div>
           <select 
             className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 font-black text-slate-600 text-[10px] uppercase outline-none shadow-sm" 
             value={sellerFilter} 
@@ -156,6 +183,7 @@ const Dashboard: React.FC<DashboardProps> = ({ orders, financials, sellers }) =>
 
       {/* BLOCO SUPERIOR - RESUMO FINANCEIRO, METAS E PROJEÇÕES */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
         {/* Quadrado de Resumo (Estilo Imagem) */}
         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col">
           <div className="mb-4 text-center">

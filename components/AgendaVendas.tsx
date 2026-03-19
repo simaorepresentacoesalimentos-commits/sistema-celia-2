@@ -571,7 +571,7 @@ const AgendaVendasComponent: React.FC = () => {
                 <div className="md:col-span-2 space-y-1">
                   <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest px-1">Anotações Estratégicas</label>
                   <textarea 
-                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-lg px-3 py-2 font-medium text-slate-600 outline-none focus:border-indigo-500 min-h-[80px] resize-none shadow-sm text-xs"
+                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-lg px-3 py-2 font-medium text-slate-600 outline-none focus:border-indigo-500 min-h-[150px] resize-none shadow-sm text-xs"
                     placeholder="Detalhes para a abordagem de venda..."
                     value={newItem.anotacoes}
                     onChange={e => setNewItem({...newItem, anotacoes: e.target.value})}

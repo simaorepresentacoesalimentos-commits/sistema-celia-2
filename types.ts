@@ -91,14 +91,16 @@ export interface AgendaVendas {
   id: string;
   cliente: string;
   cnpj: string;
-  cidade?: string;
+  cidade: string;
   telefone: string;
   contato: string;
-  ultima_compra: string;
+  ultima_compra: string | null;
   data_retorno: string;
   hora_retorno: string;
   anotacoes: string;
-  status: 'pendente' | 'concluido';
+  ramo?: string;
+  status: string;
+}
   created_at?: string;
 }
 

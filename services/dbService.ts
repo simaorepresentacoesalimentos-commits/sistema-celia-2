@@ -224,17 +224,18 @@ export const dbService = {
 
   async addAgenda(item: Omit<AgendaVendas, 'id'>): Promise<void> {
     const sanitized = {
-      cliente: item.cliente,
-      cnpj: item.cnpj,
-      cidade: item.cidade || '',
-      telefone: item.telefone,
-      contato: item.contato,
-      ultima_compra: item.ultima_compra && String(item.ultima_compra).trim() !== "" ? item.ultima_compra : null,
-      data_retorno: item.data_retorno,
-      hora_retorno: item.hora_retorno,
-      anotacoes: item.anotacoes,
-      status: item.status
-    };
+  cliente: item.cliente,
+  cnpj: item.cnpj,
+  cidade: item.cidade || '',
+  telefone: item.telefone,
+  contato: item.contato,
+  ultima_compra: ...,
+  data_retorno: item.data_retorno,
+  hora_retorno: item.hora_retorno,
+  anotacoes: item.anotacoes,
+  ramo: item.ramo, // 👈 ESSA LINHA
+  status: item.status
+};
     const { error } = await supabase.from(TABLE_AGENDA).insert([sanitized]);
     if (error) throw error;
   },

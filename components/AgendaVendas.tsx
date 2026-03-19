@@ -25,17 +25,18 @@ const AgendaVendasComponent: React.FC = () => {
   const [currentTimeStr, setCurrentTimeStr] = useState('');
 
   const [newItem, setNewItem] = useState<Omit<AgendaVendas, 'id'>>({
-    cliente: '',
-    cnpj: '',
-    cidade: '',
-    telefone: '',
-    contato: '',
-    ultima_compra: '',
-    data_retorno: new Date().toISOString().split('T')[0],
-    hora_retorno: '',
-    anotacoes: '',
-    status: 'pendente'
-  });
+  cliente: '',
+  cnpj: '',
+  cidade: '',
+  telefone: '',
+  contato: '',
+  ultima_compra: '',
+  data_retorno: new Date().toISOString().split('T')[0],
+  hora_retorno: '',
+  anotacoes: '',
+  ramo: '', // 👈 NOVO CAMPO
+  status: 'pendente'
+});
 
   useEffect(() => {
     const updateTime = () => {

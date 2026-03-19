@@ -569,6 +569,18 @@ const AgendaVendasComponent: React.FC = () => {
                   />
                 </div>
 
+                <div className="space-y-1">
+  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest px-1">
+    Ramo de Atividade
+  </label>
+  <input
+    type="text"
+    className="w-full bg-slate-50 border-2 border-slate-100 rounded-lg px-3 py-2 font-medium text-slate-600 outline-none focus:border-indigo-500 shadow-sm text-xs"
+    placeholder="Ex: Restaurante, Padaria..."
+    value={newItem.ramo || ''}
+    onChange={e => setNewItem({...newItem, ramo: e.target.value})}
+  />
+</div>
                 <div className="md:col-span-2 space-y-1">
                   <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest px-1">Anotações Estratégicas</label>
                   <textarea 

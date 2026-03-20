@@ -484,7 +484,7 @@ const App: React.FC = () => {
 
               <div className="space-y-1">
                 <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">Anotações</label>
-                <textarea className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 font-medium text-slate-600 outline-none focus:border-indigo-500 shadow-inner test-sm min-h-[200px] resize-none shadow-inner text-sm" placeholder="Histórico ou observações..." value={newCustomer.anotacoes} onChange={e => setNewCustomer({...newCustomer, anotacoes: e.target.value})} />
+                <textarea className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 font-medium text-slate-600 outline-none focus:border-indigo-500 shadow-inner test-sm min-h-[80px] resize-none shadow-inner text-sm" placeholder="Histórico ou observações..." value={newCustomer.anotacoes} onChange={e => setNewCustomer({...newCustomer, anotacoes: e.target.value})} />
               </div>
 
               <button type="submit" disabled={isSubmitting} className="w-full bg-indigo-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 uppercase text-xs tracking-[0.2em] shadow-xl hover:bg-emerald-600 transition-all disabled:opacity-50 active:scale-95 group">

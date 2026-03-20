@@ -497,7 +497,7 @@ const App: React.FC = () => {
             </form>
           </div>
         </div>
-      )}
+      }
 
       {customerToDelete && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[300] flex items-center justify-center p-4">

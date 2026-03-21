@@ -251,6 +251,7 @@ export const dbService = {
       data_retorno: item.data_retorno,
       hora_retorno: item.hora_retorno,
       anotacoes: item.anotacoes,
+      ramo: item.ramo,
       status: item.status
     };
     Object.keys(payload).forEach(key => payload[key] === undefined && delete payload[key]);

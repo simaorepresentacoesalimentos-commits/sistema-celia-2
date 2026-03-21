@@ -155,9 +155,14 @@ const AgendaVendasComponent: React.FC = () => {
 
     // Sanitização para garantir que datas vazias sejam enviadas como null
     const dataToSave = {
-      ...newItem,
-      ultima_compra: newItem.ultima_compra && newItem.ultima_compra.trim() !== "" ? newItem.ultima_compra : null
-    };
+  ...newItem,
+  ramo: newItem.ramo || '',
+  anotacoes: newItem.anotacoes || '',
+  ultima_compra:
+    newItem.ultima_compra && newItem.ultima_compra.trim() !== ''
+      ? newItem.ultima_compra
+      : null,
+};
     
     setIsSubmitting(true);
     try {

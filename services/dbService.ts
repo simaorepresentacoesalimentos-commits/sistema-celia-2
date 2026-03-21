@@ -229,7 +229,7 @@ export const dbService = {
   cidade: item.cidade || '',
   telefone: item.telefone,
   contato: item.contato,
-  ultima_compra: ...,
+  ultima_compra: item.ultima_compra,
   data_retorno: item.data_retorno,
   hora_retorno: item.hora_retorno,
   anotacoes: item.anotacoes,

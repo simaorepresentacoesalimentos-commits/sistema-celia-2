@@ -112,7 +112,7 @@ const AgendaVendasComponent: React.FC = () => {
       data_retorno: todayStr,
       hora_retorno: '',
       anotacoes: '',
-      ramo:",
+      ramo: '',
       status: 'pendente'
     });
     setIsModalOpen(true);

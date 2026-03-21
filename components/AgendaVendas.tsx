@@ -130,7 +130,7 @@ const AgendaVendasComponent: React.FC = () => {
       data_retorno: item.data_retorno,
       hora_retorno: item.hora_retorno || '',
       anotacoes: item.anotacoes || '',
-      ramo: item.ramo||",
+      ramo: item.ramo || '',
       status: item.status
     });
     setIsModalOpen(true);

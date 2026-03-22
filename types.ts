@@ -19,6 +19,7 @@ export interface Customer {
   status: string;
   ultima_compra: string;
   anotacoes: string;
+  ramo?: string;
 }
 
 export interface Seller {

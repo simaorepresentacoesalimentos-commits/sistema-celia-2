@@ -436,17 +436,7 @@ const App: React.FC = () => {
                       <input className="w-full bg-slate-50 border border-slate-100 rounded-xl pl-10 pr-4 py-2.5 font-medium text-slate-700 outline-none focus:border-indigo-500 shadow-inner text-sm" value={newCustomer.cidade} onChange={e => setNewCustomer({...newCustomer, cidade: e.target.value})} />
                     </div>
                   </div>
-                  <div className="space-y-1">
-  <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">
-    Ramo
-  </label>
-  <input
-    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 font-medium text-slate-700 outline-none focus:border-indigo-500"
-    placeholder="Ex: Restaurante, Padaria..."
-    value={newCustomer.ramo || ''}
-    onChange={(e) => setNewCustomer({ ...newCustomer, ramo: e.target.value })}
-  />
-</div>
+        
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">Vendedor</label>
@@ -458,6 +448,7 @@ const App: React.FC = () => {
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">Última Compra</label>
                       <div className="relative">
+  
                         <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" size={14} />
                         <input type="date" className="w-full bg-slate-50 border border-slate-100 rounded-xl pl-10 pr-3 py-2.5 font-medium text-slate-700 outline-none focus:border-indigo-500 shadow-inner text-sm" value={newCustomer.ultima_compra || ''} onChange={e => setNewCustomer({...newCustomer, ultima_compra: e.target.value})} />
                       </div>
@@ -468,6 +459,17 @@ const App: React.FC = () => {
                 <div className="space-y-4">
                   <h4 className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] border-b border-slate-100 pb-1 flex items-center gap-2"><Phone size={12}/> Comunicação</h4>
                   <div className="grid grid-cols-2 gap-3">
+                                                <div className="space-y-1">
+  <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">
+    Ramo
+  </label>
+  <input
+    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 font-medium text-slate-700 outline-none focus:border-indigo-500"
+    placeholder="Ex: Restaurante, Padaria..."
+    value={newCustomer.ramo || ''}
+    onChange={(e) => setNewCustomer({ ...newCustomer, ramo: e.target.value })}
+  />
+</div>
                     <div className="space-y-1">
                       <label className="text-[9px] font-bold text-slate-500 uppercase tracking-widest px-1">Telefone</label>
                       <input className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-2.5 font-medium text-slate-700 outline-none focus:border-indigo-500 shadow-inner text-sm" value={newCustomer.telefone} onChange={e => setNewCustomer({...newCustomer, telefone: formatPhone(e.target.value)})} placeholder="(00) 00000-0000" />

@@ -39,7 +39,7 @@ const App: React.FC = () => {
   
   const [newCustomer, setNewCustomer] = useState<Omit<Customer, 'id'>>({
     name: '', cnpj: '', cidade: '', telefone: '', telefone_secundario: '',
-    contato: '', vendedor: '', status: 'Ativo', ultima_compra: '', anotacoes: ''
+    contato: '', vendedor: '', status: 'Ativo', ultima_compra: '', anotacoes: '', ramo '',
   });
 
   const checkBackupStatus = () => {

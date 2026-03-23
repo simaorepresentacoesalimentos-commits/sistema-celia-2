@@ -24,6 +24,7 @@ const Reports: React.FC = () => {
     end: new Date().toISOString().split('T')[0],
     vendedor: '',
     customerStatus: 'todos',
+    ramo: 'todos',
   });
 
   const loadAllData = async () => {

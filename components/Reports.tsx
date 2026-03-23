@@ -205,9 +205,9 @@ return statusMatch && sellerMatch && ramoMatch;
   onChange={e => setFilters({ ...filters, end: e.target.value })}
 />
 </div>
-       {activeTab === 'customers_base' ? (
-  <>
-                   <div className="flex-1 min-w-[180px]">
+  {activeTab === 'customers_base' ? (
+    <>
+      div className="flex-1 min-w-[180px]">
               <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Filtrar por Status</label>
               <input 
                 type="text"

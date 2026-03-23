@@ -189,73 +189,30 @@ return statusMatch && sellerMatch && ramoMatch;
         </button>
       </div>
 
-      <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 grid grid-cols-4 gap-4">
-          <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Início</label>
-          <input type="date" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
-            value={filters.start} onChange={e => setFilters({...filters, start: e.target.value})} />
-        </div>
-                  <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Fim</label>
-           <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
-  Fim
-</label>
-<input
-  type="date"
-  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
-  value={filters.end}
-  onChange={e => setFilters({ ...filters, end: e.target.value })}
-/>
-</div>
-{activeTab === 'customers_base' ? (
-  <>
-    <div className="flex-1 min-w-[180px]">
-              <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Filtrar por Status</label>
-              <input 
-                type="text"
-                placeholder="BUSCAR STATUS..."
-                className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 font-black text-indigo-600 outline-none uppercase text-[10px] placeholder:text-indigo-300"
-                value={filters.customerStatus === 'todos' ? '' : filters.customerStatus}
-                onChange={e => setFilters({...filters, customerStatus: e.target.value || 'todos'})}
-              />
-            </div>
-            <div className="flex-1 min-w-[180px]">
-  <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
-    Ramo
-  </label>
-  <input
-    type="text"
-    placeholder="BUSCAR RAMO..."
-    className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 font-black text-slate-700"
-    value={filters.ramo === 'todos' ? '' : filters.ramo}
-    onChange={e => setFilters({ ...filters, ramo: e.target.value || 'todos' })}
-  />
-</div>
-            <div className="flex-1 min-w-[180px]">
-              <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Vendedor</label>
-              <select 
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-black text-slate-600 outline-none uppercase text-[10px]"
-                value={filters.vendedor}
-                onChange={e => setFilters({...filters, vendedor: e.target.value})}
-              >
-                <option value="">Todos os Vendedores</option>
-                {Array.from(new Set(customers.map(c => c.vendedor).filter(v => v))).map(v => <option key={v} value={v}>{v}</option>)}
-              </select>
-            </div>
-          </>
-        ) : (
-          <div className="flex-1 min-w-[200px]">
-            <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Vendedor</label>
-            <select 
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
-              value={filters.vendedor}
-              onChange={e => setFilters({...filters, vendedor: e.target.value})}
-            >
-              <option value="">Todos</option>
-              {Array.from(new Set(orders.map(o => o.vendedor))).map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-          </div>
-        )}
-      </div>
+      <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div className="flex-1 min-w-[150px]">
+    <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+      Início
+    </label>
+    <input
+      type="date"
+      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
+      value={filters.start}
+      onChange={e => setFilters({ ...filters, start: e.target.value })}
+    />
+  </div>
 
+  <div className="flex-1 min-w-[150px]">
+    <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+      Fim
+    </label>
+    <input
+      type="date"
+      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
+      value={filters.end}
+      onChange={e => setFilters({ ...filters, end: e.target.value })}
+    />
+  </
       <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
         <div className="flex overflow-x-auto border-b border-slate-100 bg-slate-50/50 no-print">
           {renderTabButton('billing', 'Faturamento', <ShoppingCart size={16}/>)}

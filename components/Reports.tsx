@@ -436,7 +436,7 @@ return statusMatch && sellerMatch && ramoMatch;
                         </td>
                         <td className="px-4 py-3 font-medium text-slate-500">{c.ultima_compra ? formatDateSafe(c.ultima_compra) : 'Sem registro'}</td>
                       </tr>
-                    ))
+                    )}
                     {filteredCustomers.length === 0 && (
                       <tr>
                         <td colSpan={8} className="py-20 text-center text-slate-400 font-black uppercase tracking-widest">Nenhum cliente encontrado com os filtros selecionados</td>

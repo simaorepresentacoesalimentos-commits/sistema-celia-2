@@ -139,7 +139,11 @@ const Reports: React.FC = () => {
   const filteredCustomers = customers.filter(c => {
     const statusMatch = filters.customerStatus === 'todos' || (c.status || '').toLowerCase().includes(filters.customerStatus.toLowerCase());
     const sellerMatch = !filters.vendedor || (c.vendedor || '').toLowerCase() === filters.vendedor.toLowerCase();
-    return statusMatch && sellerMatch;
+    const ramoMatch =
+  filters.ramo === 'todos' ||
+  (c.ramo || '').toLowerCase() === filters.ramo.toLowerCase();
+
+return statusMatch && sellerMatch && ramoMatch;
   });
 
   const renderTabButton = (id: ReportTab, label: string, icon: React.ReactNode) => (

@@ -206,6 +206,8 @@ return statusMatch && sellerMatch && ramoMatch;
 />
 </div>
     </div>
+    {activeTab === 'customers_base' ? (
+  <>
                    <div className="flex-1 min-w-[180px]">
               <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Filtrar por Status</label>
               <input 

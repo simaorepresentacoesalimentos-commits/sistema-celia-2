@@ -214,6 +214,18 @@ return statusMatch && sellerMatch && ramoMatch;
               />
             </div>
             <div className="flex-1 min-w-[180px]">
+  <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+    Ramo
+  </label>
+  <input
+    type="text"
+    placeholder="BUSCAR RAMO..."
+    className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 font-black text-slate-700"
+    value={filters.ramo === 'todos' ? '' : filters.ramo}
+    onChange={e => setFilters({ ...filters, ramo: e.target.value || 'todos' })}
+  />
+</div>
+            <div className="flex-1 min-w-[180px]">
               <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Vendedor</label>
               <select 
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-black text-slate-600 outline-none uppercase text-[10px]"

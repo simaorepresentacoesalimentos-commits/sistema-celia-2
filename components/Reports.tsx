@@ -189,8 +189,7 @@ return statusMatch && sellerMatch && ramoMatch;
         </button>
       </div>
 
-      <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-wrap gap-4 items-end no-print">
-        <div className="flex-1 min-w-[150px]">
+      <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 grid grid-cols-4 gap-4">
           <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Início</label>
           <input type="date" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
             value={filters.start} onChange={e => setFilters({...filters, start: e.target.value})} />

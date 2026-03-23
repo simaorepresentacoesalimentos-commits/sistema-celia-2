@@ -199,8 +199,8 @@ return statusMatch && sellerMatch && ramoMatch;
           <input type="date" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
             value={filters.end} onChange={e => setFilters({...filters, end: e.target.value})} />
         </div>
-        
-        {activeTab === 'customers_base' ? (
+        </div>
+     {activeTab === 'customers_base' ? (
           <>
             <div className="flex-1 min-w-[180px]">
               <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Filtrar por Status</label>

@@ -200,7 +200,7 @@ return statusMatch && sellerMatch && ramoMatch;
   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
   value={filters.end}
   onChange={e => setFilters({ ...filters, end: e.target.value })}
-/>
+
         </div>
         </div>
      {activeTab === 'customers_base' ? (

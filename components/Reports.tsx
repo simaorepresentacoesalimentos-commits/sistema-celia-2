@@ -447,10 +447,7 @@ return statusMatch && sellerMatch && ramoMatch;
               </div>
             </div>
           )}
-        </div>
-      </div>
-    </div>
-  );
+            
 };
 
 export default Reports;

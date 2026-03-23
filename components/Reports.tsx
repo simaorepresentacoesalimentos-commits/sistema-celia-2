@@ -212,49 +212,88 @@ return statusMatch && sellerMatch && ramoMatch;
       value={filters.end}
       onChange={e => setFilters({ ...filters, end: e.target.value })}
     />
-  </
-      <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
-        <div className="flex overflow-x-auto border-b border-slate-100 bg-slate-50/50 no-print">
-          {renderTabButton('billing', 'Faturamento', <ShoppingCart size={16}/>)}
-          {renderTabButton('pending', 'Pendentes', <Clock size={16}/>)}
-          {renderTabButton('paid', 'Comissões', <CheckCircle2 size={16}/>)}
-          {renderTabButton('customers_base', 'Lista de Clientes', <Users size={16}/>)}
-        </div>
+  </div>
 
-        <div className="p-8" id="printable-report">
-          {activeTab === 'billing' && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-center no-print">
-                <h4 className="text-[10px] font-black text-slate-800 uppercase tracking-widest">Faturamento Detalhado</h4>
-                <ActionButtons data={filteredOrders.map(o => ({ Data: o.data_pedido, Cliente: o.cliente_nome, Vendedor: o.vendedor, Total: o.total_pedido }))} name="Faturamento" />
-              </div>
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="bg-slate-50 text-[10px] uppercase font-black text-slate-400">
-                    <th className="px-6 py-4">Data</th>
-                    <th className="px-6 py-4">Cliente</th>
-                    <th className="px-6 py-4">Vendedor</th>
-                    <th className="px-6 py-4 text-right">Valor Total</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {filteredOrders.map(o => (
-                    <tr key={o.id} className="text-xs">
-                      <td className="px-6 py-4 font-bold text-slate-500">{formatDateSafe(o.data_pedido)}</td>
-                      <td className="px-6 py-4 font-black text-slate-800 uppercase">{o.cliente_nome}</td>
-                      <td className="px-6 py-4 text-[10px] font-black text-indigo-500 uppercase">{o.vendedor}</td>
-                      <td className="px-6 py-4 text-right font-black">{formatCurrency(o.total_pedido)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-                <tfoot>
-                  <tr className="total-row bg-slate-900 text-white font-black">
-                    <td colSpan={2} className="px-6 py-5 text-[10px] uppercase">Totais do Período</td>
-                    <td className="px-6 py-5 text-center">{filteredOrders.length} Vendas</td>
-                    <td className="px-6 py-5 text-right text-lg">{formatCurrency(filteredOrders.reduce((acc, o) => acc + o.total_pedido, 0))}</td>
-                  </tr>
-                </tfoot>
-              </table>
+  {activeTab === 'customers_base' ? (
+    <>
+      <div className="flex-1 min-w-[180px]">
+        <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+          Filtrar por Status
+        </label>
+        <input
+          type="text"
+          placeholder="BUSCAR STATUS..."
+          className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 font-black text-indigo-600 outline-none"
+          value={filters.customerStatus === 'todos' ? '' : filters.customerStatus}
+          onChange={e =>
+            setFilters({
+              ...filters,
+              customerStatus: e.target.value || 'todos',
+            })
+          }
+        />
+      </div>
+
+      <div className="flex-1 min-w-[180px]">
+        <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+          Ramo
+        </label>
+        <input
+          type="text"
+          placeholder="BUSCAR RAMO..."
+          className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 font-black text-indigo-600 outline-none"
+          value={filters.ramo === 'todos' ? '' : filters.ramo}
+          onChange={e =>
+            setFilters({
+              ...filters,
+              ramo: e.target.value || 'todos',
+            })
+          }
+        />
+      </div>
+
+      <div className="flex-1 min-w-[180px]">
+        <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+          Vendedor
+        </label>
+        <select
+          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
+          value={filters.vendedor}
+          onChange={e => setFilters({ ...filters, vendedor: e.target.value })}
+        >
+          <option value="">Todos os Vendedores</option>
+          {Array.from(
+            new Set(customers.map(c => c.vendedor).filter(v => v))
+          ).map(v => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
+      </div>
+    </>
+  ) : (
+    <div className="flex-1 min-w-[200px]">
+      <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+        Vendedor
+      </label>
+      <select
+        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-600 outline-none"
+        value={filters.vendedor}
+        onChange={e => setFilters({ ...filters, vendedor: e.target.value })}
+      >
+        <option value="">Todos</option>
+        {Array.from(
+          new Set(orders.map(o => o.vendedor).filter(v => v))
+        ).map(v => (
+          <option key={v} value={v}>
+            {v}
+          </option>
+        ))}
+      </select>
+    </div>
+  )}
+</div>
             </div>
           )}
 

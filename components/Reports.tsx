@@ -412,6 +412,7 @@ const Reports: React.FC = () => {
                       <th className="px-4 py-3">Nome Fantasia</th>
                       <th className="px-4 py-3">CNPJ / CPF</th>
                       <th className="px-4 py-3">Cidade</th>
+                      <th className="px-4 py-3">Ramo</th>
                       <th className="px-4 py-3">Telefones</th>
                       <th className="px-4 py-3">Contato</th>
                       <th className="px-4 py-3">Vendedor</th>
@@ -426,6 +427,7 @@ const Reports: React.FC = () => {
                         <td className="px-4 py-3 font-medium text-slate-500">{c.cnpj || '---'}</td>
                         <td className="px-4 py-3 font-medium text-slate-500 uppercase">{c.cidade}</td>
                         <td className="px-4 py-3">
+                          <td className="px-4 py-3">{c.ramo}</td>
                            <div className="font-bold">{c.telefone}</div>
                            <div className="text-slate-400">{c.telefone_secundario}</div>
                         </td>

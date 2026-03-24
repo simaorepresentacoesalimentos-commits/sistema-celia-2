@@ -255,6 +255,7 @@ const Reports: React.FC = () => {
                   <tr className="bg-slate-50 text-[10px] uppercase font-black text-slate-400">
                     <th className="px-6 py-4">Data</th>
                     <th className="px-6 py-4">Cliente</th>
+                    <td className="px-6 py-4">{o.ramo}</td>
                     <th className="px-6 py-4">Vendedor</th>
                     <th className="px-6 py-4 text-right">Valor Total</th>
                   </tr>

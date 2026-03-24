@@ -282,9 +282,10 @@ const Reports: React.FC = () => {
 <td className="px-6 py-4 text-right font-black">
   {formatCurrency(o.total_pedido)}
 </td>
-                  ))}
-                </tbody>
+                    </tr>
+                ))}
                 <tfoot>
+                </tbody>
                   <tr className="total-row bg-slate-900 text-white font-black">
                     <td colSpan={2} className="px-6 py-5 text-[10px] uppercase">Totais do Período</td>
                     <td className="px-6 py-5 text-center">{filteredOrders.length} Vendas</td>

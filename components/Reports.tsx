@@ -294,7 +294,7 @@ const Reports: React.FC = () => {
 </tfoot>
 </table>
 </div>
-            </div>
+         
           )}
 
           {activeTab === 'paid' && (

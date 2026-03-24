@@ -209,6 +209,23 @@ const Reports: React.FC = () => {
               />
             </div>
             <div className="flex-1 min-w-[180px]">
+  <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
+    RAMO
+  </label>
+  <input
+    type="text"
+    placeholder="BUSCAR RAMO..."
+    className="w-full bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 font-black text-slate-800 uppercase"
+    value={filters.ramo === 'todos' ? '' : filters.ramo}
+    onChange={(e) =>
+      setFilters({
+        ...filters,
+        ramo: e.target.value || 'todos'
+      })
+    }
+  />
+</div>
+            <div className="flex-1 min-w-[180px]">
               <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Vendedor</label>
               <select 
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-black text-slate-600 outline-none uppercase text-[10px]"
@@ -422,7 +439,13 @@ const Reports: React.FC = () => {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {filteredCustomers.sort((a,b) => a.name.localeCompare(b.name)).map(c => (
-                      <tr key={c.id} className="text-[11px] hover:bg-slate-50">
+                     {filteredCustomers
+  .filter(c =>
+    filters.ramo === 'todos' ||
+    (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())
+  )
+  .sort((a,b) => a.name.localeCompare(b.name))
+  .map(c => (
                         <td className="px-4 py-3 font-black text-slate-800 uppercase">{c.name}</td>
                         <td className="px-4 py-3 font-medium text-slate-500">{c.cnpj || '---'}</td>
                       

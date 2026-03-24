@@ -263,11 +263,25 @@ const Reports: React.FC = () => {
                 <tbody className="divide-y divide-slate-100">
                   {filteredOrders.map(o => (
                     <tr key={o.id} className="text-xs">
-                      <td className="px-6 py-4 font-bold text-slate-500">{formatDateSafe(o.data_pedido)}</td>
-                      <td className="px-6 py-4 font-black text-slate-800 uppercase">{o.cliente_nome}</td>
-                      <td className="px-6 py-4 text-[10px] font-black text-indigo-500 uppercase">{o.vendedor}</td>
-                      <td className="px-6 py-4 text-right font-black">{formatCurrency(o.total_pedido)}</td>
-                    </tr>
+                      <td className="px-6 py-4 font-bold text-slate-500">
+  {formatDateSafe(o.data_pedido)}
+</td>
+
+<td className="px-6 py-4 font-black text-slate-800 uppercase">
+  {o.cliente_nome}
+</td>
+
+<td className="px-6 py-4">
+  {o.ramo}
+</td>
+
+<td className="px-6 py-4 text-[10px] font-black text-indigo-500 uppercase">
+  {o.vendedor}
+</td>
+
+<td className="px-6 py-4 text-right font-black">
+  {formatCurrency(o.total_pedido)}
+</td>
                   ))}
                 </tbody>
                 <tfoot>

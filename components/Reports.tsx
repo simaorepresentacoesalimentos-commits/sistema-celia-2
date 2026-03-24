@@ -439,14 +439,7 @@ const Reports: React.FC = () => {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {filteredCustomers.sort((a,b) => a.name.localeCompare(b.name)).map(c => (
-                     {filteredCustomers
-  .filter(c =>
-    filters.ramo === 'todos' ||
-    (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())
-  )
-  .sort((a,b) => a.name.localeCompare(b.name))
-  .map(c => (
-  .filter(c =>
+                      .filter(c =>
     filters.ramo === 'todos' ||
     (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())
   )

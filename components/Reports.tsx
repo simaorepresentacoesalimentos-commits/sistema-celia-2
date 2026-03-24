@@ -428,9 +428,10 @@ const Reports: React.FC = () => {
                       
                         <td className="px-4 py-3 font-medium text-slate-500 uppercase">{c.cidade}</td>
                           <td className="px-4 py-3">{c.ramo}</td>
-                           <div className="font-bold">{c.telefone}</div>
-                           <div className="text-slate-400">{c.telefone_secundario}</div>
-                        </td>
+                     <td className="px-4 py-3">
+  <div className="font-bold">{c.telefone}</div>
+  <div className="text-slate-400">{c.telefone_secundario}</div>
+</td>
                         <td className="px-4 py-3 font-medium text-slate-500 uppercase">{c.contato}</td>
                         <td className="px-4 py-3 font-black text-indigo-500 uppercase">{c.vendedor}</td>
                         <td className="px-4 py-3">

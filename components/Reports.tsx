@@ -425,8 +425,8 @@ const Reports: React.FC = () => {
                       <tr key={c.id} className="text-[11px] hover:bg-slate-50">
                         <td className="px-4 py-3 font-black text-slate-800 uppercase">{c.name}</td>
                         <td className="px-4 py-3 font-medium text-slate-500">{c.cnpj || '---'}</td>
+                      
                         <td className="px-4 py-3 font-medium text-slate-500 uppercase">{c.cidade}</td>
-                        <td className="px-4 py-3">
                           <td className="px-4 py-3">{c.ramo}</td>
                            <div className="font-bold">{c.telefone}</div>
                            <div className="text-slate-400">{c.telefone_secundario}</div>

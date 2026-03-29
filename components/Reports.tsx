@@ -447,9 +447,11 @@ const Reports: React.FC = () => {
     )
     .sort((a, b) => a.name.localeCompare(b.name))
    
-    .map(c => (      
+    .map((.index) =>(     
                      <tr key={c.id} className="text-[11px] hover:bg-slate-50">
-              <td className="px-4 py-3 font-black text-slate-800 uppercase">{c.name}</td>
+              <td className="px-4 py-3 font-black text-slate-800 uppercase">
+                {index + 1} - {c.name}
+              </td>
                         <td className="px-4 py-3 font-medium text-slate-500">{c.cnpj || '---'}</td>
                       
                         <td className="px-4 py-3 font-medium text-slate-500 uppercase">{c.cidade}</td>

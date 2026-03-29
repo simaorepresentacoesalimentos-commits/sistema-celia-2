@@ -447,7 +447,7 @@ const Reports: React.FC = () => {
     )
     .sort((a, b) => a.name.localeCompare(b.name))
    
-    .map((.index) =>(     
+    .map((c.index) =>(     
                      <tr key={c.id} className="text-[11px] hover:bg-slate-50">
               <td className="px-4 py-3 font-black text-slate-800 uppercase">
                 {index + 1} - {c.name}

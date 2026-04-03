@@ -121,7 +121,8 @@ const Reports: React.FC = () => {
     .filter(o => {
       const dateMatch = o.data_pedido >= filters.start && o.data_pedido <= filters.end;
       const sellerMatch = !filters.vendedor || o.vendedor.toLowerCase() === filters.vendedor.toLowerCase();
-      return dateMatch && sellerMatch;
+      const clienteMatch = !filters.cliente || (o.cliente || '').toLowerCase() === filters.cliente.toLowerCase()
+      return dateMatch && sellerMatch && clientMatch
     })
     .sort((a, b) => a.data_pedido.localeCompare(b.data_pedido));
 

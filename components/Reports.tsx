@@ -238,7 +238,17 @@ const Reports: React.FC = () => {
               </select>
             </div>
           </>
-        ) : (
+       <div className="flex-1 min-w-[180px]">
+              <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Cliente</label>
+              <select 
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-black text-slate-600 outline-none uppercase text-[10px]"
+                value={filters.clientes}
+                onChange={e => setFilters({...filters, cliente: e.target.value})}
+              >
+                <option value="">Todos os Clientes</option>
+                {Array.from(new Set(customers.map(c => c.nome).filter(v => v))).map(v => <option key={v} value={v}>{v}</option>)}
+              </select>
+            </div> ) : (
           <div className="flex-1 min-w-[200px]">
             <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Vendedor</label>
             <select 

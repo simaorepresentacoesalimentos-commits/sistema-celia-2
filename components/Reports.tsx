@@ -320,7 +320,7 @@ const Reports: React.FC = () => {
 </td>
 
   <td className="px-6 py-4 text-[10px] font-black text-slate-700">
-  {o.comissao_percentual ? ${o.comissao_percentual}% `: '-'}
+ {o.comissao_percentual ? o.comissao_percentual + '%' : '-'}
 </td>
                       
 <td className="px-6 py-4 text-right font-black">

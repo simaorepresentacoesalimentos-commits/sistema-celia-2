@@ -316,7 +316,7 @@ const Reports: React.FC = () => {
 </td>
 
 <td className="px-6 py-4 text-[10px] text-slate-600">
-  {JSON.stringify(o)}
+  {Array.isArray(o.itens) ? o.itens.map(i => i.produto_item || '-').join(', ') : '-'}
 </td>
 
   <td className="px-6 py-4 text-[10px] font-black text-slate-700">

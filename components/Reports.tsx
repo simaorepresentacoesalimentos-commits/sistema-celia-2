@@ -446,7 +446,7 @@ const Reports: React.FC = () => {
       (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())
     )
    .sort((a, b) => a.name.localeCompare(b.name))
-      .map((c, index) => (  
+      .map((c, index) => )  
                      <tr key={c.id} className="text-[11px] hover:bg-slate-50">
               <td className="px-4 py-3 font-black text-slate-800 uppercase">
                 {index + 1} - {c.name}

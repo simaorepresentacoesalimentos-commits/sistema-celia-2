@@ -445,7 +445,7 @@ const Reports: React.FC = () => {
       filters.ramo === 'todos' ||
       (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())
     )
-    {filteredCustomers.sort((a, b) => a.name.localeCompare(b.name))
+   .sort((a, b) => a.name.localeCompare(b.name))
       .map((c, index) => (  
                      <tr key={c.id} className="text-[11px] hover:bg-slate-50">
               <td className="px-4 py-3 font-black text-slate-800 uppercase">

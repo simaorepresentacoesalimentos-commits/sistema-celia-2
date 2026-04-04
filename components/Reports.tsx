@@ -238,7 +238,7 @@ const Reports: React.FC = () => {
                 {Array.from(new Set(customers.map(c => c.vendedor).filter(v => v))).map(v => <option key={v} value={v}>{v}</option>)}
               </select>
             </div>
-          </>
+         
        <div className="flex-1 min-w-[180px]">
               <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">Cliente</label>
               <select 

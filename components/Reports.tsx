@@ -261,10 +261,7 @@ const Reports: React.FC = () => {
               {Array.from(new Set(orders.map(o => o.vendedor))).map(v => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
-        )}
-      </div>
-
-      <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
         <div className="flex overflow-x-auto border-b border-slate-100 bg-slate-50/50 no-print">
           {renderTabButton('billing', 'Faturamento', <ShoppingCart size={16}/>)}
           {renderTabButton('pending', 'Pendentes', <Clock size={16}/>)}

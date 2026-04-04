@@ -482,13 +482,14 @@ const Reports: React.FC = () => {
                         <td colSpan={8} className="py-20 text-center text-slate-400 font-black uppercase tracking-widest">Nenhum cliente encontrado com os filtros selecionados</td>
                       </tr>
                     )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-);
+                 </tbody>
+    </table>
+  </div>
+</div>
+)}
+</div>
+</div>
+  );
 };
 
+export default Reports;

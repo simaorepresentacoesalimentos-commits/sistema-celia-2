@@ -336,7 +336,7 @@ const Reports: React.FC = () => {
 </td>
 
 <td className="px-6 py-4 text-[10px] text-slate-600 whitespace-pre-line">
-  {Array.isArray(o.Itens) ? o.Itens.map(i => i.produto_item || '-').join('\n') : '-'}
+  {Array.isArray(o.Itens) ? o.Itens.map(i => i.produto_item || i.produto || i.nome || i.item || '-').join('\n') : '-'}
 </td>
 
   <td className="px-6 py-4 text-[10px] font-black text-slate-700">

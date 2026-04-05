@@ -456,7 +456,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
     Pagamento à vista selecionado
   </p>
 </div>
-
+)}
   <div className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
              <div className="flex flex-wrap gap-12">
                <div>

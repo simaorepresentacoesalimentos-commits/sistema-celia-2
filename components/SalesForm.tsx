@@ -18,7 +18,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [errorLog, setErrorLog] = useState<string | null>(null);
-    
+  const [tipoComissao, setTipoComissao] = useState('manual');  
   const getLocalDate = () => {
   const d = new Date();
   const offset = d.getTimezoneOffset() * 60000;
@@ -332,66 +332,95 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
           <div className="space-y-4">
             <h4 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2"><UserCheck size={20}/> Vendedor & Gestão de Comissões</h4>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-50 p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
-              <div className="space-y-1">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block px-1">Vendedor *</label>
-                <select 
-                  required 
-                  className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-slate-800 text-xs uppercase outline-none focus:border-indigo-500 shadow-sm transition-all" 
-                  value={order.vendedor} 
-                  onChange={e => setOrder({...order, vendedor: e.target.value})}
-                >
-                  <option value="">Selecione...</option>
-                  {sellersList.map(s => <option key={s.id} value={s.nome}>{s.nome}</option>)}
-                
-</div>
+             <div className="bg-slate-50 p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-sm space-y-4">
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="space-y-1">
+      <label className="text-[10px] font-texto text-slate-400 tracking-widest uppercase block px-1">
+        Vendedor *
+      </label>
+      <select
+        required
+        className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-slate-800 text-xs uppercase outline-none focus:border-indigo-500 shadow-sm"
+        value={order.vendedor}
+        onChange={(e) => setOrder({ ...order, vendedor: e.target.value })}
+      >
+        <option value="">Selecione...</option>
+        {sellersList.map((s) => (
+          <option key={s.id} value={s.nome}>
+            {s.nome}
+          </option>
+        ))}
+      </select>
+    </div>
 
-{tipoComissao === 'manual' && (
-  <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+    <div className="space-y-1">
+      <label className="text-[10px] font-texto text-slate-400 tracking-widest uppercase block px-1">
+        Tipo de Comissão
+      </label>
+      <select
+        value={tipoComissao}
+        onChange={(e) => setTipoComissao(e.target.value)}
+        className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-slate-800 text-xs outline-none focus:border-indigo-500 shadow-sm"
+      >
+        <option value="manual">Manual</option>
+        <option value="padrao">Padrão</option>
+      </select>
+    </div>
 
-    <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-      Célia %
-    </label>
-
-    <input
-      type="number"
-      className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none"
-     
-      onChange={(e) =>
-        setOrder({ ...order, comissao_percentual: e.target.value })
-      }
-    />
-
+    <div className="space-y-1">
+      <label className="text-[10px] font-texto text-slate-400 tracking-widest uppercase block px-1">
+        Célia %
+      </label>
+      <input
+        type="number"
+        className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-xl text-emerald-600 outline-none shadow-sm"
+        value={order.comissao_percentual}
+        onChange={(e) =>
+          setOrder({ ...order, comissao_percentual: e.target.value })
+        }
+      />
+    </div>
   </div>
-)}
-              </div>
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
-                <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Célia %</label>
-                <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none" value={order.comissao_percentual} onChange={e => setOrder({...order, comissao_percentual: Number(e.target.value)})} />
-              </div>
-              
-                <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Repasse %</label>
-                <input type="number" className="w-full bg-transparent font-black text-xl text-amber-500 outline-none" value={order.repasse_percentual} onChange={e => setOrder({...order, repasse_percentual: Number(e.target.value)})} />
-              </div>
-              <div className="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-100 shadow-sm space-y-1">
-                <label className="text-[10px] font-black text-emerald-600 uppercase block mb-1">Manual R$</label>
-                <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-700 outline-none" value={order.comissao_real} onChange={e => setOrder({...order, comissao_real: Number(e.target.value)})} />
-              </div>
-            </div>
-          </div>
 
-          <div className="space-y-4">
-            <h4 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2"><CreditCard size={20}/> Condição de Pagamento & Vencimentos</h4>
-            <div className="bg-white p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
-              <div className="flex flex-col md:flex-row gap-8">
-                <div className="w-full md:w-1/3 space-y-4">
-                  <div className="flex gap-2">
-                    <select className="flex-1 bg-slate-50 border-2 border-slate-100 rounded-2xl px-5 py-4 font-black text-slate-700 shadow-sm outline-none focus:border-indigo-500" value={order.forma_pagamento} onChange={e => setOrder({...order, forma_pagamento: e.target.value as any})}>
-                      <option value="PIX">💰 À VISTA (PIX)</option>
-                      <option value="BOLETO">📄 PARCELADO (BOLETO)</option>
-                    </select>
-                    {order.forma_pagamento === 'BOLETO' && (
-                      <input type="number" title="Parcelas" className="w-20 bg-slate-50 border-2 border-slate-100 rounded-2xl px-2 py-4 font-black text-center shadow-sm outline-none focus:border-indigo-500" value={order.quant_parcelas} onChange={e => setOrder({...order, quant_parcelas: Math.max(1, Number(e.target.value))})} />
-                    )}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+      <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
+        Célia %
+      </label>
+      <div className="bg-transparent font-black text-xl text-emerald-600">
+        {order.comissao_percentual || 0}
+      </div>
+    </div>
+
+    <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+      <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
+        Repasse %
+      </label>
+      <input
+        type="number"
+        className="w-full bg-transparent font-black text-xl text-amber-500 outline-none"
+        value={order.repasse_percentual}
+        onChange={(e) =>
+          setOrder({ ...order, repasse_percentual: e.target.value })
+        }
+      />
+    </div>
+
+    <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 shadow-sm space-y-1">
+      <label className="text-[10px] font-black text-emerald-600 uppercase block mb-1">
+        Manual R$
+      </label>
+      <input
+        type="number"
+        className="w-full bg-transparent font-black text-xl text-emerald-700 outline-none"
+        value={order.comissao_real}
+        onChange={(e) =>
+          setOrder({ ...order, comissao_real: e.target.value })
+        }
+      />
+    </div>
+  </div>
+</div>
                   </div>
                   <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
                      <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />

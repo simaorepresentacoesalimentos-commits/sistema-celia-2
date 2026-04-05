@@ -18,8 +18,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [errorLog, setErrorLog] = useState<string | null>(null);
-  const [tipoComissao, setTipoComissao] = useState('manual');
-  
+    
   const getLocalDate = () => {
   const d = new Date();
   const offset = d.getTimezoneOffset() * 60000;
@@ -343,20 +342,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
                 >
                   <option value="">Selecione...</option>
                   {sellersList.map(s => <option key={s.id} value={s.nome}>{s.nome}</option>)}
-                </select>
-             <div className="bg-branco p-4 arredondado-2xl borda-ardósia-200 sombra-sm espaço-y-1">
-
-  <label className="texto-[10px]">Tipo de Comissão</label>
-
-  <select
-    value={tipoComissao}
-    onChange={(e) => setTipoComissao(e.target.value)}
-    className="w-full px-3 py-2 border rounded"
-  >
-    <option value="manual">Manual</option>
-    <option value="padrao">Padrão</option>
-  </select>
-
+                
 </div>
 
 {tipoComissao === 'manual' && (
@@ -369,7 +355,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
     <input
       type="number"
       className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none"
-      value={order.comissao_percentual}
+     
       onChange={(e) =>
         setOrder({ ...order, comissao_percentual: e.target.value })
       }
@@ -382,7 +368,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Célia %</label>
                 <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none" value={order.comissao_percentual} onChange={e => setOrder({...order, comissao_percentual: Number(e.target.value)})} />
               </div>
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+              
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Repasse %</label>
                 <input type="number" className="w-full bg-transparent font-black text-xl text-amber-500 outline-none" value={order.repasse_percentual} onChange={e => setOrder({...order, repasse_percentual: Number(e.target.value)})} />
               </div>

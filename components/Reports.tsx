@@ -335,8 +335,8 @@ const Reports: React.FC = () => {
   {o.vendedor}
 </td>
 
-<td className="px-6 py-4 text-[10px] text-slate-600 whitespace-pre-line">
-  {Array.isArray(o.Itens) ? o.Itens.map(i => i.produto_item || i.produto || i.nome || i.item || '-').join('\n') : '-'}
+<td className="px-6 py-4 text-[10px] text-slate-600 max-w-[180px] break-words">
+  {Array.isArray(o.Itens) ? o.Itens.map(i => i.produto_item || '-').join(', ') : '-'}
 </td>
 
   <td className="px-6 py-4 text-[10px] font-black text-slate-700">

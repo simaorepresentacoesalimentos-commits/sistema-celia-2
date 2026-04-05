@@ -18,11 +18,12 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [errorLog, setErrorLog] = useState<string | null>(null);
+  const [tipoComissao, setTipoComissao] = useState('manual');
   
   const getLocalDate = () => {
-    const d = new Date();
-    const offset = d.getTimezoneOffset() * 60000;
-    const [tipoComissao, setTipoComissao] = useState('manual')
+  const d = new Date();
+  const offset = d.getTimezoneOffset() * 60000;
+    
     return new Date(d.getTime() - offset).toISOString().split('T')[0];
   };
 

@@ -91,9 +91,14 @@ const Reports: React.FC = () => {
           body { font-family: sans-serif; padding: 20px; color: #000; background: #fff; }
           h1 { font-size: 18px; margin-bottom: 5px; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 5px; }
           p.meta { font-size: 10px; margin-bottom: 20px; color: #333; }
-          table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-          th, td { border: 1px solid #000; padding: 6px 8px; text-align: left; font-size: 10px; word-break: break-word; }
-          th { background-color: #f0f0f0; font-weight: bold; text-transform: uppercase; }
+          td { 
+  border: 1px solid #000; 
+  padding: 6px 8px; 
+  text-align: left; 
+  font-size: 10px; 
+  word-break: break-word;
+  white-space: pre-line;
+}
           .total-row { font-weight: bold; background-color: #f0f0f0; }
           .footer { margin-top: 30px; text-align: center; font-size: 9px; color: #666; border-top: 1px dashed #ccc; padding-top: 10px; }
         </style>

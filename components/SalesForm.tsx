@@ -22,6 +22,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   const getLocalDate = () => {
     const d = new Date();
     const offset = d.getTimezoneOffset() * 60000;
+    const [tipoComissao, setTipoComissao] = useState('manual')
     return new Date(d.getTime() - offset).toISOString().split('T')[0];
   };
 
@@ -342,6 +343,37 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
                   <option value="">Selecione...</option>
                   {sellersList.map(s => <option key={s.id} value={s.nome}>{s.nome}</option>)}
                 </select>
+             <div className="bg-branco p-4 arredondado-2xl borda-ardósia-200 sombra-sm espaço-y-1">
+  {tipoComissao === 'manual' && (
+  <Entrada
+    Tipo="number"
+    value={ordem.comissao_percentual}
+    onChange={(e) =>
+      setOrdem({ ...ordem, comissao_percentual: e.target.value })
+    }
+  />
+)}
+    value={tipoComissao}
+    onChange={(e) => setTipoComissao(e.target.value)}
+    className="w-full px-3 py-2 border rounded"
+  >
+    {tipoComissao === 'manual' && (
+  <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+    <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
+      Célia %
+    </label>
+
+    <input
+      type="number"
+      className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none"
+      value={order.comissao_percentual}
+      onChange={(e) =>
+        setOrder({ ...order, comissao_percentual: e.target.value })
+      }
+    />
+  </div>
+)}
+</div>
               </div>
               <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Célia %</label>

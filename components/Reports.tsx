@@ -121,9 +121,8 @@ const Reports: React.FC = () => {
     .filter(o => {
       const dateMatch = o.data_pedido >= filters.start && o.data_pedido <= filters.end;
       const sellerMatch = !filters.vendedor || o.vendedor.toLowerCase() === filters.vendedor.toLowerCase();
-      const clientMatch =
-    !filters.cliente ||
-    JSON.stringify(o).toLowerCase().includes(filters.cliente.toLowerCase());
+      const clientMatch = !filters.cliente || (o.cliente_nome || '').toLowerCase().includes(filters.cliente.toLowerCase());
+    
       return dateMatch && sellerMatch && clientMatch;
       
     })
@@ -335,8 +334,8 @@ const Reports: React.FC = () => {
   {o.vendedor}
 </td>
 
-<td className="px-6 py-4 text-[10px] text-slate-600">
-  {Array.isArray(o.Itens) ? o.Itens.map(i => i.produto_item || '-').join(', ') : '-'}
+<td className="px-6 py-4 text-[10px] text-slate-600 whitespace-pre-line">
+  {Array.isArray(o.itens) ? o.itens.map(i => i.produto_item || '-').join('\n') : '-'}
 </td>
 
   <td className="px-6 py-4 text-[10px] font-black text-slate-700">

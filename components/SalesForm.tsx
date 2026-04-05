@@ -357,22 +357,8 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
         </select>
       </div>
 
-      <div className="space-y-1">
-        <label className="text-[10px] font-texto text-slate-400 tracking-widest uppercase block px-1">
-          Tipo de Comissão
-        </label>
-        <select
-          value={tipoComissao}
-          onChange={(e) => setTipoComissao(e.target.value)}
-          className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-slate-800 text-xs outline-none focus:border-indigo-500 shadow-sm"
-        >
-          <option value="manual">Manual</option>
-          <option value="padrao">Padrão</option>
-        </select>
-      </div>
-    </div>
-
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
         <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
           Célia %

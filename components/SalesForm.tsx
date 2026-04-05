@@ -451,11 +451,11 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
                     </div>
                   )}
                   {order.forma_pagamento === 'PIX' && (
-                    <div className="h-full flex items-center justify-center border-2 border-dashed border-slate-100 rounded-[2rem] p-8">
-                       <p className="text-slate-300 font-black uppercase text-xs tracking-widest">Pagamento à vista selecionado</p>
-                         )}
-    </div>
-  </div>
+                    <div className="flex flex-1 items-center justify-center border-2 border-dashed border-slate-100 rounded-[2rem] p-8">
+  <p className="text-slate-300 font-black text-xs tracking-widest">
+    Pagamento à vista selecionado
+  </p>
+</div>
 
   <div className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
              <div className="flex flex-wrap gap-12">

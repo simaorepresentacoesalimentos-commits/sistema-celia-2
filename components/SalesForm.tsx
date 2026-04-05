@@ -344,18 +344,23 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
                   {sellersList.map(s => <option key={s.id} value={s.nome}>{s.nome}</option>)}
                 </select>
              <div className="bg-branco p-4 arredondado-2xl borda-ardósia-200 sombra-sm espaço-y-1">
+
   <label className="texto-[10px]">Tipo de Comissão</label>
 
-<select
-  value={tipoComissao}
-  onChange={(e) => setTipoComissao(e.target.value)}
-  className="w-full px-3 py-2 border rounded"
->
-  <option value="manual">Manual</option>
-  <option value="padrao">Padrão</option>
-</select>
-    {tipoComissao === 'manual' && (
+  <select
+    value={tipoComissao}
+    onChange={(e) => setTipoComissao(e.target.value)}
+    className="w-full px-3 py-2 border rounded"
+  >
+    <option value="manual">Manual</option>
+    <option value="padrao">Padrão</option>
+  </select>
+
+</div>
+
+{tipoComissao === 'manual' && (
   <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+
     <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
       Célia %
     </label>
@@ -368,9 +373,9 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
         setOrder({ ...order, comissao_percentual: e.target.value })
       }
     />
+
   </div>
 )}
-</div>
               </div>
               <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Célia %</label>

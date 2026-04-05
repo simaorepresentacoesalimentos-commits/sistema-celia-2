@@ -417,24 +417,15 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
     </div>
   </div>
 </div>
-        value={order.comissao_real}
-        onChange={(e) =>
-          setOrder({ ...order, comissao_real: e.target.value })
-        }
-              />
-      </div>
-    </div>
-  </div>
-</div>
+        
                   <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
                      <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />
                      <p className="text-[10px] font-bold text-indigo-500 uppercase leading-tight">
                        Para Boleto, preencha os dias após a entrega em cada parcela.
-                             />
+                          </p>
       </div>
     </div>
-  </div>
-</div>
+ 
                   {order.forma_pagamento === 'BOLETO' && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                        {parcelDays.map((days, idx) => (

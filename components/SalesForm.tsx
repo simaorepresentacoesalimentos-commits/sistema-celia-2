@@ -477,7 +477,8 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
           </div>
        </div>
       </form>
+     </div>   
 );       
-</div>
 };   
+      
 export default SalesForm;

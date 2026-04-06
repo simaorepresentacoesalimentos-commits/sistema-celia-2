@@ -478,6 +478,6 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
        </div>
       </form>
 );
-
+};        
 
 export default SalesForm;

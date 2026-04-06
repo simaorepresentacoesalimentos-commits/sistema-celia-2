@@ -361,8 +361,8 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
 </div>
 
 {tipoComissao === 'manual' && (
-  <div className="bg-white p-2 rounded-2xl border border-slate-200 shadow-sm space-y-1">
-
+  BG-branco P-2 arredondado-lg
+                
     <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
       Célia %
     </label>
@@ -379,15 +379,18 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   </div>
 )}
               </div>
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+              P-4 → P-2
+                 arredondado-2XL → arredondado-lg
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Célia %</label>
                 <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none" value={order.comissao_percentual} onChange={e => setOrder({...order, comissao_percentual: Number(e.target.value)})} />
               </div>
-              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+              P-4 → P-2
+              arredondado-2XL → arredondado-lg
                 <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Repasse %</label>
                 <input type="number" className="w-full bg-transparent font-black text-xl text-amber-500 outline-none" value={order.repasse_percentual} onChange={e => setOrder({...order, repasse_percentual: Number(e.target.value)})} />
               </div>
-              <div className="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-100 shadow-sm space-y-1">
+              P-4 → P-2
+                 arredondado-2XL → arredondado-lg
                 <label className="text-[10px] font-black text-emerald-600 uppercase block mb-1">Manual R$</label>
                 <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-700 outline-none" value={order.comissao_real} onChange={e => setOrder({...order, comissao_real: Number(e.target.value)})} />
               </div>

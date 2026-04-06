@@ -387,24 +387,116 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
         />
       </div>
 
-      <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 shadow-sm space-y-1">
-        <label className="text-[10px] font-black text-emerald-600 uppercase block mb-1">
-          Manual R$
-        </label>
-        <input
-          type="number"
-          className="w-full bg-transparent font-black text-xl text-emerald-700 outline-none"
-          value={order.comissao_real}
-          onChange={(e) =>
-            setOrder({ ...order, comissao_real: Number(e.target.value) })
-          }
-        />
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+  <div>
+    <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
+      Forma de pagamento
+    </label>
+
+    <select
+      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-lg"
+      value={order.forma_pagamento || 'PIX'}
+      onChange={(e) => {
+        const forma = e.target.value;
+
+        setOrder({
+          ...order,
+          forma_pagamento: forma,
+          quant_parcelas: forma === 'BOLETO' ? (order.quant_parcelas || 1) : 1
+        });
+
+        if (forma !== 'BOLETO') {
+          setParcelDays([]);
+        } else {
+          setParcelDays(Array.from({ length: order.quant_parcelas || 1 }, () => ''));
+        }
+      }}
+    >
+      <option value="PIX">PIX</option>
+      <option value="BOLETO">BOLETO</option>
+    </select>
+  </div>
+
+  {order.forma_pagamento === 'BOLETO' && (
+    <div>
+      <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
+        Parcelas
+      </label>
+
+      <input
+        type="number"
+        min="1"
+        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-lg"
+        value={order.quant_parcelas || 1}
+        onChange={(e) => {
+          const qtd = Math.max(1, Number(e.target.value) || 1);
+
+          setOrder({ ...order, quant_parcelas: qtd });
+
+          setParcelDays(
+            Array.from({ length: qtd }, (_, i) => parcelDays[i] || '')
+          );
+        }}
+      />
+    </div>
+  )}
+
+</div>
     </div>
   </div>
 </div>
         
-                  <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
+                 <divisão Nome da Classe="grade grade-cols-1 md:grade-cols-2 gap-4 mb-4">
+  <divisão>
+    <rótulo Nome da Classe="texto-[11px] fonte-texto preto-ardósia-400 maiúsculas rastreamento-mais largo MB-1">
+      Forma de pagamento
+    </rótulo>
+
+    <selecionar
+      Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
+      Valor={Ordem.forma_pagamento || 'PIX'}
+      onChange={(e) => {
+        const forma = e.Alvo.Valor;
+        conjuntoOrdem({
+          ...Ordem,
+          forma_pagamento: forma,
+          quant_parcelas: forma === 'BOLETO' ? (Ordem.quant_parcelas || 1) : 1
+        });
+
+        if (forma !== 'BOLETO') {
+          setParcelDays([]);
+        } else {
+          setParcelDays(Array.from({ length: Ordem.quant_parcelas || 1 }, () => ''));
+        }
+      }}
+    >
+      <opção valor="PIX">PIX</opção>
+      <opção valor="BOLETO">BOLETO</opção>
+    </selecionar>
+  </divisão>
+
+  {Ordem.forma_pagamento === 'BOLETO' && (
+    <divisão>
+      <rótulo Nome da Classe="texto-[11px] fonte-texto preto-ardósia-400 maiúsculas rastreamento-mais largo MB-1">
+        Quantidade de parcelas
+      </rótulo>
+
+      <entrada
+        tipo="número"
+        min="1"
+        Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
+        Valor={Ordem.quant_parcelas || 1}
+        onChange={(e) => {
+          const qtd = Math.max(1, Número(e.Alvo.Valor) || 1);
+          conjuntoOrdem({ ...Ordem, quant_parcelas: qtd });
+          setParcelDays(Array.from({ length: qtd }, (_, i) => parcelDays[i] || ''));
+        }}
+      />
+    </divisão>
+  )}
+</divisão>
+              <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
                      <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />
                      <p className="text-[10px] font-bold text-indigo-500 uppercase leading-tight">
                        Para Boleto, preencha os dias após a entrega em cada parcela.

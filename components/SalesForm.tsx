@@ -400,12 +400,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
     }
   />
 </div>
-        setOrder({
-          ...order,
-          forma_pagamento: forma,
-          quant_parcelas: forma === 'BOLETO' ? (order.quant_parcelas || 1) : 1
-        });
-
+        
         if (forma !== 'BOLETO') {
           setParcelDays([]);
         } else {

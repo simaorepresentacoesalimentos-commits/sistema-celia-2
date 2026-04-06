@@ -387,19 +387,19 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-  <div>
-    <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-      Forma de pagamento
-    </label>
-
-    <select
-      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-lg"
-      value={order.forma_pagamento || 'PIX'}
-      onChange={(e) => {
-        const forma = e.target.value;
-
+      <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 shadow-sm space-y-1">
+  <label className="text-[10px] font-black text-emerald-600 uppercase block mb-1">
+    Manual R$
+  </label>
+  <input
+    type="number"
+    className="w-full bg-transparent font-black text-xl text-emerald-700 outline-none"
+    value={order.comissao_real}
+    onChange={(e) =>
+      setOrder({ ...order, comissao_real: Number(e.target.value) })
+    }
+  />
+</div>
         setOrder({
           ...order,
           forma_pagamento: forma,
@@ -447,12 +447,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   </div>
 </div>
         
-                 <divisão Nome da Classe="grade grade-cols-1 md:grade-cols-2 gap-4 mb-4">
-  <divisão>
-    <rótulo Nome da Classe="texto-[11px] fonte-texto preto-ardósia-400 maiúsculas rastreamento-mais largo MB-1">
-      Forma de pagamento
-    </rótulo>
-
+                 
     <selecionar
       Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
       Valor={Ordem.forma_pagamento || 'PIX'}

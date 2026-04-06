@@ -401,12 +401,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   />
 </div>
         
-        if (forma !== 'BOLETO') {
-          setParcelDays([]);
-        } else {
-          setParcelDays(Array.from({ length: order.quant_parcelas || 1 }, () => ''));
-        }
-      }}
+        
     >
       <option value="PIX">PIX</option>
       <option value="BOLETO">BOLETO</option>

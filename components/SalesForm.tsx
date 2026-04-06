@@ -361,7 +361,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
 </div>
 
 {tipoComissao === 'manual' && (
-  BG-branco P-2 arredondado-lg
+  <div className="bg-white p-2 rounded-lg border border-slate-200 shadow-sm space-y-1">
                 
     <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
       Célia %

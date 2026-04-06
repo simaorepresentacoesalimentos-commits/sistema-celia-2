@@ -476,7 +476,7 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
             </button>
           </div>
        </div>
-     479 </form>
+      </form>
  </div>
  </div>
  );

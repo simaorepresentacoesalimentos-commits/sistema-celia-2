@@ -400,90 +400,41 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
     }
   />
 </div>
-        
-        
-    >
-      <option value="PIX">PIX</option>
-      <option value="BOLETO">BOLETO</option>
-    </select>
-  </div>
 
-  {order.forma_pagamento === 'BOLETO' && (
-    <div>
-      <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-        Parcelas
-      </label>
-
-      <input
-        type="number"
-        min="1"
-        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-lg"
-        value={order.quant_parcelas || 1}
-        onChange={(e) => {
-          const qtd = Math.max(1, Number(e.target.value) || 1);
-
-          setOrder({ ...order, quant_parcelas: qtd });
-
-          setParcelDays(
-            Array.from({ length: qtd }, (_, i) => parcelDays[i] || '')
-          );
-        }}
-      />
-    </div>
-  )}
-
+        <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
+  <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />
+  <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-wide">
+    Para Boleto, preencha os dias após a entrega em cada parcela.
+  </p>
 </div>
-    </div>
+
+{order.forma_pagamento === 'BOLETO' && (
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {parcelDays.map((dias, idx) => (
+      <div
+        key={idx}
+        className="space-y-1 bg-slate-50 p-4 rounded-3xl border border-slate-100 shadow-sm flex flex-col items-center"
+      >
+        <label className="text-[11px] font-texto text-black text-slate-400 uppercase tracking-wide mb-1">
+          Parcela {idx + 1}
+        </label>
+        <input
+          type="number"
+          className="w-full border-2 border-slate-200 rounded-xl px-4 py-3 text-lg text-center text-indigo-700 outline-none"
+          value={dias === 0 ? '' : dias}
+          placeholder="Dias..."
+          onChange={(e) => {
+            const newVal = e.target.value === '' ? 0 : Number(e.target.value);
+            const proximo = [...parcelDays];
+            proximo[idx] = newVal;
+            setParcelDays(proximo);
+          }}
+        />
+      </div>
+    ))}
   </div>
-</div>
+)}
         
-                 
-    <selecionar
-      Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
-      Valor={Ordem.forma_pagamento || 'PIX'}
-      onChange={(e) => {
-        const forma = e.Alvo.Valor;
-        conjuntoOrdem({
-          ...Ordem,
-          forma_pagamento: forma,
-          quant_parcelas: forma === 'BOLETO' ? (Ordem.quant_parcelas || 1) : 1
-        });
-
-        if (forma !== 'BOLETO') {
-          setParcelDays([]);
-        } else {
-          setParcelDays(Array.from({ length: Ordem.quant_parcelas || 1 }, () => ''));
-        }
-      }}
-    >
-      <opção valor="PIX">PIX</opção>
-      <opção valor="BOLETO">BOLETO</opção>
-    </selecionar>
-  </divisão>
-
-  {Ordem.forma_pagamento === 'BOLETO' && (
-    <divisão>
-      <rótulo Nome da Classe="texto-[11px] fonte-texto preto-ardósia-400 maiúsculas rastreamento-mais largo MB-1">
-        Quantidade de parcelas
-      </rótulo>
-
-      <entrada
-        tipo="número"
-        min="1"
-        Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
-        Valor={Ordem.quant_parcelas || 1}
-        onChange={(e) => {
-          const qtd = Math.max(1, Número(e.Alvo.Valor) || 1);
-          conjuntoOrdem({ ...Ordem, quant_parcelas: qtd });
-          setParcelDays(Array.from({ length: qtd }, (_, i) => parcelDays[i] || ''));
-        }}
-      />
-    </divisão>
-  )}
-</divisão>
-              <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
-                     <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />
-                     <p className="text-[10px] font-bold text-indigo-500 uppercase leading-tight">
                        Para Boleto, preencha os dias após a entrega em cada parcela.
                           </p>
       </div>

@@ -475,9 +475,9 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
               <ArrowRight size={28} className="group-hover:translate-x-3 transition-transform"/>
             </button>
           </div>
-        </form>
-      </div>
+       </div>
+      </form>
 );
-};
+
 
 export default SalesForm;

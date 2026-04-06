@@ -19,7 +19,8 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
   const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [errorLog, setErrorLog] = useState<string | null>(null);
-  const [tipoComissao, setTipoComissao] = useState('manual');  
+  const [tipoComissao, setTipoComissao] = useState('manual');
+  
   const getLocalDate = () => {
   const d = new Date();
   const offset = d.getTimezoneOffset() * 60000;
@@ -331,180 +332,91 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
           </div>
 
           <div className="space-y-4">
-            <div className="space-y-4">
-  <h4 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2">
-    <UserCheck size={20} />
-    Vendedor & Gestão de Comissões
-  </h4>
+            <h4 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2"><UserCheck size={20}/> Vendedor & Gestão de Comissões</h4>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-50 p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
+              <div className="space-y-1">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block px-1">Vendedor *</label>
+                <select 
+                  required 
+                  className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-slate-800 text-xs uppercase outline-none focus:border-indigo-500 shadow-sm transition-all" 
+                  value={order.vendedor} 
+                  onChange={e => setOrder({...order, vendedor: e.target.value})}
+                >
+                  <option value="">Selecione...</option>
+                  {sellersList.map(s => <option key={s.id} value={s.nome}>{s.nome}</option>)}
+                </select>
+             <div className="bg-branco p-4 arredondado-2xl borda-ardósia-200 sombra-sm espaço-y-1">
 
-  <div className="bg-slate-50 p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-sm space-y-4">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="space-y-1">
-        <label className="text-[10px] font-texto text-slate-400 tracking-widest uppercase block px-1">
-          Vendedor *
-        </label>
-        <select
-          required
-          className="w-full bg-white border-2 border-slate-200 rounded-2xl px-4 py-4 font-black text-slate-800 text-xs uppercase outline-none focus:border-indigo-500 shadow-sm"
-          value={order.vendedor}
-          onChange={(e) => setOrder({ ...order, vendedor: e.target.value })}
-        >
-          <option value="">Selecione...</option>
-          {sellersList.map((s) => (
-            <option key={s.id} value={s.nome}>
-              {s.nome}
-            </option>
-          ))}
-        </select>
-      </div>
+  <label className="texto-[10px]">Tipo de Comissão</label>
 
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
-        <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-          Célia %
-        </label>
-        <input
-          type="number"
-          className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none"
-          value={order.comissao_percentual}
-          onChange={(e) =>
-            setOrder({ ...order, comissao_percentual: Number(e.target.value) })
-          }
-        />
-      </div>
+  <select
+    value={tipoComissao}
+    onChange={(e) => setTipoComissao(e.target.value)}
+    className="w-full px-3 py-2 border rounded"
+  >
+    <option value="manual">Manual</option>
+    <option value="padrao">Padrão</option>
+  </select>
 
-      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
-        <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-          Repasse %
-        </label>
-        <input
-          type="number"
-          className="w-full bg-transparent font-black text-xl text-amber-500 outline-none"
-          value={order.repasse_percentual}
-          onChange={(e) =>
-            setOrder({ ...order, repasse_percentual: Number(e.target.value) })
-          }
-        />
-      </div>
+</div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+{tipoComissao === 'manual' && (
+  <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
 
-  <div>
     <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-      Forma de pagamento
+      Célia %
     </label>
 
-    <select
-      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-lg"
-      value={order.forma_pagamento || 'PIX'}
-      onChange={(e) => {
-        const forma = e.target.value;
+    <input
+      type="number"
+      className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none"
+      value={order.comissao_percentual}
+      onChange={(e) =>
+        setOrder({ ...order, comissao_percentual: e.target.value })
+      }
+    />
 
-        setOrder({
-          ...order,
-          forma_pagamento: forma,
-          quant_parcelas: forma === 'BOLETO' ? (order.quant_parcelas || 1) : 1
-        });
-
-        if (forma !== 'BOLETO') {
-          setParcelDays([]);
-        } else {
-          setParcelDays(Array.from({ length: order.quant_parcelas || 1 }, () => ''));
-        }
-      }}
-    >
-      <option value="PIX">PIX</option>
-      <option value="BOLETO">BOLETO</option>
-    </select>
   </div>
+)}
+              </div>
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+                <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Célia %</label>
+                <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-600 outline-none" value={order.comissao_percentual} onChange={e => setOrder({...order, comissao_percentual: Number(e.target.value)})} />
+              </div>
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-1">
+                <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">Repasse %</label>
+                <input type="number" className="w-full bg-transparent font-black text-xl text-amber-500 outline-none" value={order.repasse_percentual} onChange={e => setOrder({...order, repasse_percentual: Number(e.target.value)})} />
+              </div>
+              <div className="bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-100 shadow-sm space-y-1">
+                <label className="text-[10px] font-black text-emerald-600 uppercase block mb-1">Manual R$</label>
+                <input type="number" className="w-full bg-transparent font-black text-xl text-emerald-700 outline-none" value={order.comissao_real} onChange={e => setOrder({...order, comissao_real: Number(e.target.value)})} />
+              </div>
+            </div>
+          </div>
 
-  {order.forma_pagamento === 'BOLETO' && (
-    <div>
-      <label className="text-[10px] font-black text-slate-400 uppercase block mb-1">
-        Parcelas
-      </label>
-
-      <input
-        type="number"
-        min="1"
-        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-lg"
-        value={order.quant_parcelas || 1}
-        onChange={(e) => {
-          const qtd = Math.max(1, Number(e.target.value) || 1);
-
-          setOrder({ ...order, quant_parcelas: qtd });
-
-          setParcelDays(
-            Array.from({ length: qtd }, (_, i) => parcelDays[i] || '')
-          );
-        }}
-      />
-    </div>
-  )}
-
-</div>
-    </div>
-  </div>
-</div>
-        
-                 <divisão Nome da Classe="grade grade-cols-1 md:grade-cols-2 gap-4 mb-4">
-  <divisão>
-    <rótulo Nome da Classe="texto-[11px] fonte-texto preto-ardósia-400 maiúsculas rastreamento-mais largo MB-1">
-      Forma de pagamento
-    </rótulo>
-
-    <selecionar
-      Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
-      Valor={Ordem.forma_pagamento || 'PIX'}
-      onChange={(e) => {
-        const forma = e.Alvo.Valor;
-        conjuntoOrdem({
-          ...Ordem,
-          forma_pagamento: forma,
-          quant_parcelas: forma === 'BOLETO' ? (Ordem.quant_parcelas || 1) : 1
-        });
-
-        if (forma !== 'BOLETO') {
-          setParcelDays([]);
-        } else {
-          setParcelDays(Array.from({ length: Ordem.quant_parcelas || 1 }, () => ''));
-        }
-      }}
-    >
-      <opção valor="PIX">PIX</opção>
-      <opção valor="BOLETO">BOLETO</opção>
-    </selecionar>
-  </divisão>
-
-  {Ordem.forma_pagamento === 'BOLETO' && (
-    <divisão>
-      <rótulo Nome da Classe="texto-[11px] fonte-texto preto-ardósia-400 maiúsculas rastreamento-mais largo MB-1">
-        Quantidade de parcelas
-      </rótulo>
-
-      <entrada
-        tipo="número"
-        min="1"
-        Nome da Classe="W-BG completo-borda branca-2 borda-ardósia-200 arredondado-XL px-4 py-3 fonte-preto text-indigo-700 text-lg outline-none"
-        Valor={Ordem.quant_parcelas || 1}
-        onChange={(e) => {
-          const qtd = Math.max(1, Número(e.Alvo.Valor) || 1);
-          conjuntoOrdem({ ...Ordem, quant_parcelas: qtd });
-          setParcelDays(Array.from({ length: qtd }, (_, i) => parcelDays[i] || ''));
-        }}
-      />
-    </divisão>
-  )}
-</divisão>
-              <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
+          <div className="space-y-4">
+            <h4 className="text-[13px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2"><CreditCard size={20}/> Condição de Pagamento & Vencimentos</h4>
+            <div className="bg-white p-6 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="w-full md:w-1/3 space-y-4">
+                  <div className="flex gap-2">
+                    <select className="flex-1 bg-slate-50 border-2 border-slate-100 rounded-2xl px-5 py-4 font-black text-slate-700 shadow-sm outline-none focus:border-indigo-500" value={order.forma_pagamento} onChange={e => setOrder({...order, forma_pagamento: e.target.value as any})}>
+                      <option value="PIX">💰 À VISTA (PIX)</option>
+                      <option value="BOLETO">📄 PARCELADO (BOLETO)</option>
+                    </select>
+                    {order.forma_pagamento === 'BOLETO' && (
+                      <input type="number" title="Parcelas" className="w-20 bg-slate-50 border-2 border-slate-100 rounded-2xl px-2 py-4 font-black text-center shadow-sm outline-none focus:border-indigo-500" value={order.quant_parcelas} onChange={e => setOrder({...order, quant_parcelas: Math.max(1, Number(e.target.value))})} />
+                    )}
+                  </div>
+                  <div className="flex items-start gap-2 bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
                      <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />
                      <p className="text-[10px] font-bold text-indigo-500 uppercase leading-tight">
                        Para Boleto, preencha os dias após a entrega em cada parcela.
-                          </p>
-      </div>
-    </div>
- 
+                     </p>
+                  </div>
+                </div>
+
+                <div className="flex-1">
                   {order.forma_pagamento === 'BOLETO' && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                        {parcelDays.map((days, idx) => (
@@ -530,13 +442,16 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
                     </div>
                   )}
                   {order.forma_pagamento === 'PIX' && (
-                    <div className="flex flex-1 items-center justify-center border-2 border-dashed border-slate-100 rounded-[2rem] p-8">
-  <p className="text-slate-300 font-black text-xs tracking-widest">
-    Pagamento à vista selecionado
-  </p>
-</div>
-)}
-  <div className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
+                    <div className="h-full flex items-center justify-center border-2 border-dashed border-slate-100 rounded-[2rem] p-8">
+                       <p className="text-slate-300 font-black uppercase text-xs tracking-widest">Pagamento à vista selecionado</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-100 shadow-sm">
              <div className="flex flex-wrap gap-12">
                <div>
                  <span className="text-[11px] font-black text-emerald-600 uppercase block tracking-widest leading-tight mb-1">Comissão Bruta</span>
@@ -568,10 +483,10 @@ const SalesForm: React.FC<SalesFormProps> = ({ onSuccess, initialData, sellersLi
               <ArrowRight size={28} className="group-hover:translate-x-3 transition-transform"/>
             </button>
           </div>
-       </div>
-      </form>
- </div>
- </div>
- );
- };
- export default SalesForm;
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default SalesForm;

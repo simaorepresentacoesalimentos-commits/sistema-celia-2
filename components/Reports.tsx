@@ -24,6 +24,7 @@ const Reports: React.FC = () => {
     end: new Date().toISOString().split('T')[0],
     vendedor: '',
     cliente: '',
+    cidade: '',
     customerStatus: 'todos',
   });
 
@@ -264,16 +265,16 @@ const Reports: React.FC = () => {
             </div>
            <div className="flex-1 min-w-[180px]">
   <label className="text-[9px] font-black text-slate-400 uppercase mb-2 block tracking-widest">
-    Cliente
+    Cidade
   </label>
 
   <input
     type="text"
-    placeholder="Buscar cliente..."
+    placeholder="Buscar Cidade..."
     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-bold text-slate-700"
-    value={filters.cliente}
+    value={filters.cidade}
     onChange={(e) =>
-      setFilters({ ...filters, cliente: e.target.value })
+      setFilters({ ...filters, cidade: e.target.value })
     }
   />
 </div>
@@ -493,9 +494,11 @@ const Reports: React.FC = () => {
              
   {filteredCustomers
     .filter(c =>
-      filters.ramo === 'todos' ||
-      (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())
-    )
+  (filters.ramo === 'todos' ||
+    (c.ramo || '').toLowerCase().includes((filters.ramo || '').toLowerCase())) &&
+  (!filters.cidade ||
+    (c.cidade || '').toLowerCase().includes((filters.cidade || '').toLowerCase()))
+)
    .sort((a, b) => a.name.localeCompare(b.name))
       .map((c, index) => (  
                      <tr key={c.id} className="text-[11px] hover:bg-slate-50">

@@ -158,9 +158,9 @@ const DraftOrders: React.FC = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                drafts
-  .sort((a, b) => new Date(a.data_entrega) - new Date(b.data_entrega))
-  .map(d => (
+  {drafts
+    .sort((a, b) => new Date(a.data_entrega) - new Date(b.data_entrega))
+    .map((d) => (
                     <div key={d.id} className="flex items-center justify-between p-5 bg-white rounded-3xl border border-slate-100 group hover:border-amber-300 hover:shadow-lg hover:shadow-amber-500/5 transition-all animate-in zoom-in-95 duration-200">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center shrink-0">
